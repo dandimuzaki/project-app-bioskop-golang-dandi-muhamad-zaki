@@ -1,0 +1,48 @@
+2026-01-12T21:43:07.579+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/studios", "Duration": "166.0036ms"}
+2026-01-12T21:46:16.423+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/studios?all=true", "Duration": "48.4777ms"}
+2026-01-12T21:46:58.439+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/movies?page=1&limit=10", "Duration": "88.0255ms"}
+2026-01-12T21:52:02.423+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "145.8916ms"}
+2026-01-12T21:52:19.951+0700	ERROR	adaptor/screening.go:101	Error decode request body to dto screening request: 	{"error": "invalid character '-' after object key:value pair"}
+2026-01-12T21:52:19.954+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "2.8477ms"}
+2026-01-12T21:52:26.605+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "1.2136ms"}
+2026-01-12T21:52:51.991+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "9.6728ms"}
+2026-01-12T21:56:17.028+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "121.569ms"}
+2026-01-12T21:56:52.754+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "8.3653ms"}
+2026-01-12T21:57:26.268+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "1.9954ms"}
+2026-01-12T21:58:14.594+0700	ERROR	repository/screening.go:224	Error parsing datetime: 	{"error": "parsing time \"2025-11-21 00:00:00 +0000 UTC 10.00\" as \"02-01-2006 15.04\": cannot parse \"25-11-21 00:00:00 +0000 UTC 10.00\" as \"-\""}
+2026-01-12T21:58:14.599+0700	ERROR	usecase/screening.go:73	Error create screening Usecase: 	{"error": "parsing time \"2025-11-21 00:00:00 +0000 UTC 10.00\" as \"02-01-2006 15.04\": cannot parse \"25-11-21 00:00:00 +0000 UTC 10.00\" as \"-\""}
+2026-01-12T21:58:14.600+0700	ERROR	adaptor/screening.go:116	Error handling create screening: 	{"error": "parsing time \"2025-11-21 00:00:00 +0000 UTC 10.00\" as \"02-01-2006 15.04\": cannot parse \"25-11-21 00:00:00 +0000 UTC 10.00\" as \"-\""}
+2026-01-12T21:58:14.601+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "19.316ms"}
+2026-01-12T21:59:45.416+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "340.443ms"}
+2026-01-12T22:01:44.001+0700	ERROR	repository/screening.go:108	Error query get all screenings: 	{"error": "ERROR: syntax error at or near \"LIMIT\" (SQLSTATE 42601)"}
+2026-01-12T22:01:44.010+0700	ERROR	usecase/screening.go:34	Error get all screenings Usecase: 	{"error": "ERROR: syntax error at or near \"LIMIT\" (SQLSTATE 42601)"}
+2026-01-12T22:01:44.013+0700	ERROR	adaptor/screening.go:63	Error handling get screenings: 	{"error": "ERROR: syntax error at or near \"LIMIT\" (SQLSTATE 42601)"}
+2026-01-12T22:01:44.014+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "201.7929ms"}
+2026-01-12T22:02:41.326+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "314.9033ms"}
+2026-01-12T22:44:49.017+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "653.5544ms"}
+2026-01-12T22:47:18.632+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "209.9858ms"}
+2026-01-12T22:48:04.957+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "228.3497ms"}
+2026-01-12T22:49:15.481+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "731.0933ms"}
+2026-01-12T22:49:42.674+0700	ERROR	repository/screening.go:64	Error query count screenings: 	{"error": "no rows in result set"}
+2026-01-12T22:49:42.676+0700	ERROR	usecase/screening.go:34	Error get all screenings Usecase: 	{"error": "no rows in result set"}
+2026-01-12T22:49:42.678+0700	ERROR	adaptor/screening.go:63	Error handling get screenings: 	{"error": "no rows in result set"}
+2026-01-12T22:49:42.679+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=02-02-2026", "Duration": "10.7971ms"}
+2026-01-12T22:50:26.840+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=2026-02-02", "Duration": "22.6992ms"}
+2026-01-12T22:55:50.560+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=2026-02-02", "Duration": "240.0298ms"}
+2026-01-12T22:58:02.078+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=2026-02-02", "Duration": "212.1321ms"}
+2026-01-12T22:59:22.221+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=2026-02-02&all=true", "Duration": "42.8576ms"}
+2026-01-12T23:01:59.962+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=2026-02-02", "Duration": "221.4492ms"}
+2026-01-12T23:06:07.705+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/studios?all=true", "Duration": "84.5605ms"}
+2026-01-12T23:07:10.828+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "333.4549ms"}
+2026-01-12T23:07:29.075+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "341.5458ms"}
+2026-01-12T23:08:01.954+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=2026-02-02", "Duration": "57.0623ms"}
+2026-01-12T23:09:14.784+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/movies?page=1&limit=10", "Duration": "45.4659ms"}
+2026-01-12T23:09:34.283+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/studios?all=true", "Duration": "3.5497ms"}
+2026-01-12T23:10:36.330+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "110.9709ms"}
+2026-01-12T23:11:55.027+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "95.0511ms"}
+2026-01-12T23:12:10.353+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/studios?all=true", "Duration": "2.9633ms"}
+2026-01-12T23:12:42.123+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "239.135ms"}
+2026-01-12T23:13:13.727+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "110.6958ms"}
+2026-01-12T23:13:29.720+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=2026-02-02", "Duration": "17.4448ms"}
+2026-01-12T23:14:38.225+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "197.4446ms"}
+2026-01-12T23:14:47.827+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=2026-02-02", "Duration": "14.0027ms"}

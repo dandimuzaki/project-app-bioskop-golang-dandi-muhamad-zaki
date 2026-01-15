@@ -57,6 +57,9 @@ func ApiV1(handler *adaptor.Handler, mw mCustom.MiddlewareCustom) *chi.Mux {
 		r.Post("/login", handler.AuthHandler.Login)
 		r.Post("/register", handler.AuthHandler.Register)
 		r.Post("/logout", handler.AuthHandler.Logout)
+
+		// Available seats
+		r.Get("/available-seats", handler.SeatHandler.GetAvailableSeat)
 	})
 
 	r.Route("/cinemas", func(r chi.Router) {
@@ -65,12 +68,74 @@ func ApiV1(handler *adaptor.Handler, mw mCustom.MiddlewareCustom) *chi.Mux {
 			r.Use(mw.RequirePermission("admin"))
 			// CRUD cinemas
 			r.Post("/", handler.CinemaHandler.Create)
-			r.Put("/id", handler.CinemaHandler.Update)
-			r.Delete("/id", handler.CinemaHandler.Delete)
+			r.Put("/{id}", handler.CinemaHandler.Update)
+			r.Delete("/{id}", handler.CinemaHandler.Delete)
 		})
 
 		r.Get("/", handler.CinemaHandler.GetAll)
-		r.Get("/id", handler.CinemaHandler.GetByID)
+		r.Get("/{id}", handler.CinemaHandler.GetByID)
+	})
+
+	r.Route("/studios", func(r chi.Router) {
+		r.Route("/", func(r chi.Router) {
+			r.Use(mw.AuthMiddleware())
+			r.Use(mw.RequirePermission("admin"))
+			// CRUD studios
+			r.Get("/", handler.StudioHandler.GetAll)
+			r.Get("/{id}", handler.StudioHandler.GetByID)
+			r.Post("/", handler.StudioHandler.Create)
+			r.Put("/{id}", handler.StudioHandler.Update)
+			r.Delete("/{id}", handler.StudioHandler.Delete)
+		})
+	})
+
+	r.Route("/genres", func(r chi.Router) {
+		r.Route("/", func(r chi.Router) {
+			r.Use(mw.AuthMiddleware())
+			r.Use(mw.RequirePermission("admin"))
+			// CRUD genres
+			r.Get("/", handler.GenreHandler.GetAll)
+			r.Get("/{id}", handler.GenreHandler.GetByID)
+			r.Post("/", handler.GenreHandler.Create)
+			r.Delete("/{id}", handler.GenreHandler.Delete)
+		})
+	})
+
+	r.Route("/movies", func(r chi.Router) {
+		r.Route("/", func(r chi.Router) {
+			r.Use(mw.AuthMiddleware())
+			r.Use(mw.RequirePermission("admin"))
+			// CRUD movies
+			r.Post("/", handler.MovieHandler.Create)
+			r.Put("/{id}", handler.MovieHandler.Update)
+			r.Delete("/{id}", handler.MovieHandler.Delete)
+		})
+
+		r.Get("/", handler.MovieHandler.GetAll)
+		r.Get("/{id}", handler.MovieHandler.GetByID)
+	})
+
+	r.Route("/screenings", func(r chi.Router) {
+		r.Route("/", func(r chi.Router) {
+			r.Use(mw.AuthMiddleware())
+			r.Use(mw.RequirePermission("admin"))
+			// CRUD screenings
+			r.Post("/", handler.ScreeningHandler.Create)
+			r.Put("/{id}", handler.ScreeningHandler.Update)
+			r.Delete("/{id}", handler.ScreeningHandler.Delete)
+		})
+
+		r.Get("/", handler.ScreeningHandler.GetByCinema)
+		r.Get("/{id}", handler.ScreeningHandler.GetByID)
+	})
+
+	r.Route("/bookings", func(r chi.Router) {
+		r.Route("/", func(r chi.Router) {
+			r.Use(mw.AuthMiddleware())
+			r.Post("/", handler.BookingHandler.Create)
+			r.Get("/", handler.ScreeningHandler.GetByCinema)
+			r.Get("/{id}", handler.ScreeningHandler.GetByID)
+		})
 	})
 	
 	return r

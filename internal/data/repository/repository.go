@@ -9,6 +9,12 @@ type Repository struct {
 	UserRepo UserRepository
 	SessionRepo SessionRepository
 	CinemaRepo CinemaRepository
+	StudioRepo StudioRepository
+	GenreRepo GenreRepository
+	MovieRepo MovieRepository
+	ScreeningRepo ScreeningRepository
+	SeatRepo SeatRepository
+	BookingRepo BookingRepository
 }
 
 func NewRepository(db database.PgxIface, log *zap.Logger) Repository {
@@ -16,5 +22,11 @@ func NewRepository(db database.PgxIface, log *zap.Logger) Repository {
 		UserRepo: NewUserRepository(db, log),
 		SessionRepo: NewSessionRepository(db, log),
 		CinemaRepo: NewCinemaRepository(db, log),
+		StudioRepo: NewStudioRepository(db, log),
+		GenreRepo: NewGenreRepository(db, log),
+		MovieRepo: NewMovieRepository(db, log),
+		ScreeningRepo: NewScreeningRepository(db, log),
+		SeatRepo: NewSeatRepository(db, log),
+		BookingRepo: NewBookingRepository(db, log),
 	}
 }

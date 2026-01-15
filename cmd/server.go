@@ -17,7 +17,7 @@ func APiserver(app *wire.App) {
 	fmt.Println("Server running on port 8080")
 
 	srv := &http.Server{
-		Addr: "8080",
+		Addr: ":8080",
 		Handler: app.Route,
 	}
 

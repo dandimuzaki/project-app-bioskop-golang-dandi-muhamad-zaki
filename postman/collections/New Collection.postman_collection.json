@@ -1,0 +1,611 @@
+{
+  "info": {
+    "_postman_id": "c5b3df4e-b9a1-48c2-8dea-0d7fbd67b4a2",
+    "name": "Cinema API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "id": "3e39c443-081d-45a5-bc2c-88b39b5266b5",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Admin\",\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "97675f27-02d3-4bc5-8bc4-2d0266850782"
+    },
+    {
+      "name": "Cinema",
+      "item": [
+        {
+          "name": "Get Cinemas",
+          "id": "67fc5160-0743-44c1-92a5-41a23145ecdb",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/cinemas?page=2&limit=a",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "cinemas"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "2",
+                  "uuid": "f55a7930-f919-487f-be2a-bde03210f522"
+                },
+                {
+                  "key": "limit",
+                  "value": "a",
+                  "uuid": "e47bc1b0-c1b8-4915-8147-9f2b9db1dffd"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Cinema",
+          "id": "47b3aae4-2542-4fe4-aa6b-0b06b4526a0e",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Lumoshive Plaza\",\r\n    \"location\": \"Jalan In Aja Dulu No.2, Bandung\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/cinemas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "cinemas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Cinema",
+          "id": "19f682de-6a0b-4626-aa8f-6388f02e131a",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Lumoshive Plaza\",\r\n    \"location\": \"Jalan In Aja Dulu No.1, Bandung\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/cinemas/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "cinemas",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Cinema By ID",
+          "id": "99dc4de7-e6fc-41d6-86f8-c084f88af978",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/cinemas/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "cinemas",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "a73bd12d-db4b-418f-9973-355e9769b7cb"
+    },
+    {
+      "name": "Studio",
+      "item": [
+        {
+          "name": "Get Studios",
+          "id": "202d054a-ebbf-432a-ba74-dd588906e53b",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/studios?all=true",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "studios"
+              ],
+              "query": [
+                {
+                  "key": "all",
+                  "value": "true",
+                  "uuid": "b6841521-53de-42a3-be03-f0a4610be467"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Studio",
+          "id": "bac36286-4468-46a3-903c-933b20b2a3ac",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Studio 4\",\r\n    \"cinema_id\": 1,\r\n    \"type\": \"Regular\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/studios",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "studios"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "d5db16d1-7a87-4836-b639-8babae7e2f55"
+    },
+    {
+      "name": "Genre",
+      "item": [
+        {
+          "name": "Get Genres",
+          "id": "926e885c-fc85-4ae6-b8fd-ecdf3b094ea4",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/genres?all=true",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "genres"
+              ],
+              "query": [
+                {
+                  "key": "all",
+                  "value": "true",
+                  "uuid": "412e765c-0dfe-41e7-ace6-2e6897f010ce"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Genre",
+          "id": "ba15985c-52d8-4124-a575-a3fa36043839",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"romance\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/genres",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "genres"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "ef5ca612-630f-412c-ae26-4b38f6dc1e6e"
+    },
+    {
+      "name": "Movies",
+      "item": [
+        {
+          "name": "Create Movie",
+          "id": "ad51be55-cf13-4780-8a4b-210e0a6f7752",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Sore: A Wife from the Future\",\r\n  \"synopsis\": \"A young man’s quiet life changes when a mysterious woman claiming to be his future wife suddenly appears, bringing secrets about love, fate, and time.\",\r\n  \"genres\": [4, 10, 7],\r\n  \"poster_url\": \"https://example.com/posters/sore-wife-from-the-future.jpg\",\r\n  \"trailer_url\": \"https://example.com/trailers/sore-wife-from-the-future.mp4\",\r\n  \"duration_minute\": 105,\r\n  \"release_date\": \"2025-06-05\",\r\n  \"language\": \"Indonesian\",\r\n  \"rating_age\": \"13+\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/movies",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "movies"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Movies with Pagination",
+          "id": "cf247c9a-03f0-48c3-bb28-d53e01ed9979",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/movies?page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "movies"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "uuid": "30bcdf13-129e-4425-9206-64dd3ba1abbc"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "uuid": "8e358c75-18e2-4566-b1ba-9a012cddc9b1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter Movies By Genre",
+          "id": "3981fab8-1ab1-4647-955a-aa36e3c8447f",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/movies?genre=fantasy",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "movies"
+              ],
+              "query": [
+                {
+                  "key": "genre",
+                  "value": "fantasy"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Movie",
+          "id": "24b43675-ad59-41cc-8bac-f763651ab3cb",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Zootopia 2\",\r\n  \"synopsis\": \"Detectives Judy Hopps and Nick Wilde uncover a new conspiracy that threatens the harmony of Zootopia, forcing them to question what justice really means.\",\r\n  \"genres\": [1, 5, 6],\r\n  \"poster_url\": \"https://example.com/posters/zootopia-2.jpg\",\r\n  \"trailer_url\": \"https://example.com/trailers/zootopia-2.mp4\",\r\n  \"duration_minute\": 115,\r\n  \"release_date\": \"2025-11-26\",\r\n  \"language\": \"English\",\r\n  \"rating_age\": \"PG\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/movies/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "movies",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Movie",
+          "id": "b15de4a4-f4e2-412c-80b9-94e31875181b",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/movies/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "movies",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "d33eb1ce-2842-4c53-9584-a66ae743e8b0"
+    },
+    {
+      "name": "Screening",
+      "item": [
+        {
+          "name": "Create Screening",
+          "id": "efb0f731-367f-4359-b51a-471845915573",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"studio_id\": 3,\r\n    \"movie_id\": 3,\r\n    \"start_date\": \"01-12-2025\",\r\n    \"end_date\": \"28-02-2026\",\r\n    \"start_hours\": [\"20.15\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/screenings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "screenings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Screening By Cinema",
+          "id": "944754b2-6256-4b99-bc9d-f604ec6b48ea",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/screenings?cinemaId=1&date=2026-02-02",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "screenings"
+              ],
+              "query": [
+                {
+                  "key": "cinemaId",
+                  "value": "1",
+                  "uuid": "cfeebf33-4590-46af-b874-df67d2f4719a"
+                },
+                {
+                  "key": "date",
+                  "value": "2026-02-02",
+                  "uuid": "efd9a2b9-f075-47cc-b1d9-0dc98cc4f0ff"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "bdd4a67e-8fe5-4f97-aa04-b1c128ec3a8a"
+    },
+    {
+      "name": "Seat",
+      "item": [
+        {
+          "name": "Get Available Seats",
+          "id": "ee1ce992-14ee-4ab1-9bcd-4c4d139aa6d1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/available-seats?screeningId=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "available-seats"
+              ],
+              "query": [
+                {
+                  "key": "screeningId",
+                  "value": "1",
+                  "uuid": "97ffb809-f361-415e-8cc5-660becdb23ff"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "a8664b0f-fa27-4e07-a685-5c4fafa8dd68"
+    },
+    {
+      "name": "Booking",
+      "item": [
+        {
+          "name": "Create Booking",
+          "id": "438fc211-28ca-462e-93d3-60520754f48e",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"screening_id\": 1,\r\n    \"seats\": [3,4,5]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/bookings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "bookings"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "de9a17f2-6db4-4dcb-8d48-8e4f267b2600"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "8750d055-e01d-c206-9207-7b26913745b9",
+        "type": "string"
+      }
+    ]
+  }
+}

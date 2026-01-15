@@ -78,13 +78,13 @@ func (s *authUsecase) Register(data dto.RegisterRequest) (*dto.AuthResponse, err
 		Name: data.Name,
 		Email: data.Email,
 		Password: &passwordHashed,
-		Role: "staff",
+		Role: "customer",
 	}
 	
 	// Execute create user
 	user, err = s.Repo.UserRepo.Create(&newUser)
 	if err != nil {
-		s.Logger.Error("Error create user Usecase: ", zap.Error(err))
+		s.Logger.Error("Error create user usecase: ", zap.Error(err))
 		return nil, err
 	}
 
@@ -104,7 +104,7 @@ func (s *authUsecase) ValidateToken(token string) (*int, error) {
 	// Validate token to authorize user
 	userID, err := s.Repo.SessionRepo.ValidateToken(token)
 	if err != nil {
-		s.Logger.Error("Error validate token Usecase: ", zap.Error(err))
+		s.Logger.Error("Error validate token usecase: ", zap.Error(err))
 		return nil, err
 	}
 
@@ -114,7 +114,7 @@ func (s *authUsecase) ValidateToken(token string) (*int, error) {
 func (s *authUsecase) Logout(token string) error {
 	err := s.Repo.SessionRepo.Revoke(token)
 	if err != nil {
-		s.Logger.Error("Error logout Usecase: ", zap.Error(err))
+		s.Logger.Error("Error logout usecase: ", zap.Error(err))
 		return err
 	}
 	return nil

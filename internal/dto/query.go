@@ -5,3 +5,15 @@ type PaginationQuery struct {
 	Limit int
 	All   bool
 }
+
+type MovieQuery struct {
+	PaginationQuery
+	Genre string
+}
+
+type ScreeningQuery struct {
+	PaginationQuery
+	CinemaID int
+	MovieID  int
+	Date     string
+}

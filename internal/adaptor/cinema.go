@@ -3,6 +3,7 @@ package adaptor
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/project-app-bioskop-golang/internal/dto"
 	"github.com/project-app-bioskop-golang/internal/usecase"
@@ -26,36 +27,46 @@ func NewCinemaHandler(usecase usecase.Usecase, log *zap.Logger, config utils.Con
 
 func (h *CinemaHandler) GetAll(w http.ResponseWriter, r *http.Request) {
 	// Retrieve query
-	q := utils.GetPaginationQuery(w, r, h.Logger, h.Config)
-
-	// Execute get Cinemas
-	result, pagination, err := h.Usecase.CinemaUsecase.GetAll(q)
+	q, err := utils.GetPaginationQuery(r, h.Logger, h.Config)
 	if err != nil {
-		h.Logger.Error("Error handling get Cinemas: ", zap.Error(err))
-		utils.ResponseFailed(w, http.StatusBadRequest, "get Cinemas failed", err.Error())
+		utils.ResponseFailed(w, http.StatusBadRequest, "invalid query param", err.Error())
 		return
 	}
 
-	utils.ResponseWithPagination(w, http.StatusOK, "get Cinemas success", result, pagination)
+	// Execute get cinemas
+	result, pagination, err := h.Usecase.CinemaUsecase.GetAll(q)
+	if err != nil {
+		h.Logger.Error("Error handling get cinemas: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "get cinemas failed", err.Error())
+		return
+	}
+
+	utils.ResponseWithPagination(w, http.StatusOK, "get cinemas success", result, pagination)
 }
 
 func (h *CinemaHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	// Retrieve id
-	id := utils.GetIDParam(w, r, h.Logger)
+	idStr := r.PathValue("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		h.Logger.Error("Error convert string to int: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "error data", err.Error())
+		return
+	}
 
-	// Execute get Cinemas
+	// Execute get cinemas
 	result, err := h.Usecase.CinemaUsecase.GetByID(id)
-	if err != nil && err.Error() == utils.ErrNotFound("Cinema").Error() {
-		h.Logger.Error("Error Cinema not found: ", zap.Error(err))
-		utils.ResponseFailed(w, http.StatusNotFound, "Cinema not found", err.Error())
+	if err != nil && err.Error() == utils.ErrNotFound("cinema").Error() {
+		h.Logger.Error("Error cinema not found: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusNotFound, "cinema not found", err.Error())
 		return
 	}
 	if err != nil {
-		h.Logger.Error("Error handling get Cinema by id: ", zap.Error(err))
-		utils.ResponseFailed(w, http.StatusBadRequest, "get Cinema failed", err.Error())
+		h.Logger.Error("Error handling get cinema by id: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "get cinema failed", err.Error())
 		return
 	}
-	utils.ResponseSuccess(w, http.StatusOK, "get Cinema success", result)
+	utils.ResponseSuccess(w, http.StatusOK, "get cinema success", result)
 }
 
 func (h *CinemaHandler) Create(w http.ResponseWriter, r *http.Request) {
@@ -63,7 +74,7 @@ func (h *CinemaHandler) Create(w http.ResponseWriter, r *http.Request) {
 
 	// Decode request body
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		h.Logger.Error("Error decode request body to dto Cinema request: ", zap.Error(err))
+		h.Logger.Error("Error decode request body to dto cinema request: ", zap.Error(err))
 		utils.ResponseFailed(w, http.StatusBadRequest, "error data", err.Error())
 		return
 	}
@@ -75,26 +86,32 @@ func (h *CinemaHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Execute create Cinema
+	// Execute create cinema
 	result, err := h.Usecase.CinemaUsecase.Create(req)
 	if err != nil {
-		h.Logger.Error("Error handling create Cinema: ", zap.Error(err))
-		utils.ResponseFailed(w, http.StatusBadRequest, "create Cinema failed", err.Error())
+		h.Logger.Error("Error handling create cinema: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "create cinema failed", err.Error())
 		return
 	}
 
-	utils.ResponseSuccess(w, http.StatusCreated, "create Cinema success", result)
+	utils.ResponseSuccess(w, http.StatusCreated, "create cinema success", result)
 }
 
 func (h *CinemaHandler) Update(w http.ResponseWriter, r *http.Request) {
 	// Retrieve id
-	id := utils.GetIDParam(w, r, h.Logger)
+	idStr := r.PathValue("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		h.Logger.Error("Error convert string to int: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "error data", err.Error())
+		return
+	}
 
 	var req dto.CinemaRequest
 
 	// Decode request body
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		h.Logger.Error("Error decode request body to dto Cinema request: ", zap.Error(err))
+		h.Logger.Error("Error decode request body to dto cinema request: ", zap.Error(err))
 		utils.ResponseFailed(w, http.StatusBadRequest, "error data", err.Error())
 		return
 	}
@@ -106,38 +123,44 @@ func (h *CinemaHandler) Update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Execute update Cinema
+	// Execute update cinema
 	err = h.Usecase.CinemaUsecase.Update(id, req)
-	if err != nil && err.Error() == utils.ErrNotFound("Cinema").Error() {
-		h.Logger.Error("Error Cinema not found: ", zap.Error(err))
-		utils.ResponseFailed(w, http.StatusNotFound, "Cinema not found", err.Error())
+	if err != nil && err.Error() == utils.ErrNotFound("cinema").Error() {
+		h.Logger.Error("Error cinema not found: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusNotFound, "cinema not found", err.Error())
 		return
 	}
 	if err != nil {
-		h.Logger.Error("Error handling update Cinema: ", zap.Error(err))
-		utils.ResponseFailed(w, http.StatusBadRequest, "update Cinema failed", err.Error())
+		h.Logger.Error("Error handling update cinema: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "update cinema failed", err.Error())
 		return
 	}
 
-	utils.ResponseSuccess(w, http.StatusOK, "update Cinema success", nil)
+	utils.ResponseSuccess(w, http.StatusOK, "update cinema success", nil)
 }
 
 func (h *CinemaHandler) Delete(w http.ResponseWriter, r *http.Request) {
 	// Retrieve id
-	id := utils.GetIDParam(w, r, h.Logger)
+	idStr := r.PathValue("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		h.Logger.Error("Error convert string to int: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "error data", err.Error())
+		return
+	}
 
 	// Execute delete Cinema
-	err := h.Usecase.CinemaUsecase.Delete(id)
-	if err != nil && err.Error() == utils.ErrNotFound("Cinema").Error() {
-		h.Logger.Error("Error Cinema not found: ", zap.Error(err))
-		utils.ResponseFailed(w, http.StatusNotFound, "Cinema not found", err.Error())
+	err = h.Usecase.CinemaUsecase.Delete(id)
+	if err != nil && err.Error() == utils.ErrNotFound("cinema").Error() {
+		h.Logger.Error("Error cinema not found: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusNotFound, "cinema not found", err.Error())
 		return
 	}
 	if err != nil {
-		h.Logger.Error("Error handling delete Cinema: ", zap.Error(err))
-		utils.ResponseFailed(w, http.StatusBadRequest, "delete Cinema failed", err.Error())
+		h.Logger.Error("Error handling delete cinema: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "delete cinema failed", err.Error())
 		return
 	}
 
-	utils.ResponseSuccess(w, http.StatusOK, "delete Cinema success", nil)
+	utils.ResponseSuccess(w, http.StatusOK, "delete cinema success", nil)
 }

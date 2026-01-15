@@ -1,7 +1,6 @@
 package entity
 
 type Seat struct {
-	Model
-	StudioID int    `json:"studio_id"`
+	ID       int    `json:"id"`
 	SeatCode string `json:"seat_code"`
 }

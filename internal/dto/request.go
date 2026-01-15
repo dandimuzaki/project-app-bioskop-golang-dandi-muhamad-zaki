@@ -1,5 +1,55 @@
 package dto
 
 type CinemaRequest struct {
-	Name string `json:"name"`
+	Name     string `json:"name" validate:"required"`
+	Location string `json:"location" validate:"required"`
+}
+
+type StudioRequest struct {
+	CinemaID int    `json:"cinema_id" validate:"required,gt=0"`
+	Name     string `json:"name" validate:"required"`
+	Type     string `json:"type" validate:"required"`
+}
+
+type MovieRequest struct {
+	Title       string `json:"title" validate:"required"`
+	Synopsis    string `json:"synopsis" validate:"required"`
+	Genres      []int  `json:"genres" validate:"required"`
+	PosterURL   string `json:"poster_url" validate:"required"`
+	TrailerURL  string `json:"trailer_url" validate:"required"`
+	Duration    int    `json:"duration_minute" validate:"required,gt=0"`
+	ReleaseDate string `json:"release_date" validate:"required,datetime=2006-01-02"`
+	Language    string `json:"language" validate:"required"`
+	RatingAge   string `json:"rating_age" validate:"required"`
+}
+
+type ScreeningRequest struct {
+	StudioID   int      `json:"studio_id"`
+	MovieID    int      `json:"movie_id"`
+	StartDate  string   `json:"start_date" validate:"required,datetime=02-01-2006"`
+	EndDate    string   `json:"end_date" validate:"required,datetime=02-01-2006"`
+	StartHours []string `json:"start_hours" validate:"required,dive,datetime=15.04"`
+}
+
+type UpdateScreeningRequest struct {
+	StudioID  int    `json:"studio_id"`
+	MovieID   int    `json:"movie_id"`
+	StartTime string `json:"start_time" validate:"required"`
+}
+
+type BookingRequest struct {
+	UserID      int   `json:"user_id" validate:"required"`
+	ScreeningID int   `json:"screening_id" validate:"required"`
+	Seats       []int `json:"seats" validate:"required"`
+}
+
+type PaymentRequest struct {
+	BookingID     int    `json:"booking_id" validate:"required"`
+	PaymentMethod int    `json:"payment_method" validate:"required"`
+	Amount        string `json:"amount" validate:"required"`
+}
+
+type UpdatePayment struct {
+	Status        string `json:"status"`
+	TransactionID string `json:"transaction_id"`
 }

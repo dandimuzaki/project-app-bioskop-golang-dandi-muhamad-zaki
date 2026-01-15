@@ -9,9 +9,9 @@ import (
 )
 
 type CinemaUsecase interface{
-	GetAll(q dto.PaginationQuery) ([]entity.Cinema, *dto.Pagination, error)
-	GetByID(id int) (*entity.Cinema, error)
-	Create(data dto.CinemaRequest) (*entity.Cinema, error)
+	GetAll(q dto.PaginationQuery) ([]dto.CinemaResponse, *dto.Pagination, error)
+	GetByID(id int) (*dto.CinemaResponse, error)
+	Create(data dto.CinemaRequest) (*dto.CinemaResponse, error)
 	Update(id int, data dto.CinemaRequest) error
 	Delete(id int) error
 }
@@ -28,11 +28,11 @@ func NewCinemaUsecase(repo *repository.Repository, log *zap.Logger) CinemaUsecas
 	}
 }
 
-func (s *cinemaUsecase) GetAll(q dto.PaginationQuery) ([]entity.Cinema, *dto.Pagination, error) {
+func (s *cinemaUsecase) GetAll(q dto.PaginationQuery) ([]dto.CinemaResponse, *dto.Pagination, error) {
 	// Execute repo to get all cinemas
 	cinemas, total, err := s.Repo.CinemaRepo.GetAll(q)
 	if err != nil {
-		s.Logger.Error("Error get all cinemas Usecase: ", zap.Error(err))
+		s.Logger.Error("Error get all cinemas usecase: ", zap.Error(err))
 		return nil, nil, err
 	}
 
@@ -56,37 +56,53 @@ func (s *cinemaUsecase) GetAll(q dto.PaginationQuery) ([]entity.Cinema, *dto.Pag
 		}
 	}
 
-	return cinemas, &pagination, nil
+	var response []dto.CinemaResponse
+	for _, c := range cinemas {
+		response = append(response, dto.CinemaResponse{
+			CinemaID: c.ID,
+			Name: c.Name,
+			Location: c.Location,
+		})
+	}
+
+	return response, &pagination, nil
 }
 
-func (s *cinemaUsecase) GetByID(id int) (*entity.Cinema, error) {
-	cinema, err := s.Repo.CinemaRepo.GetByID(id)
+func (s *cinemaUsecase) GetByID(id int) (*dto.CinemaResponse, error) {
+	c, err := s.Repo.CinemaRepo.GetByID(id)
 	if err != nil {
-		s.Logger.Error("Error get cinema by id Usecase: ", zap.Error(err))
+		s.Logger.Error("Error get cinema by id usecase: ", zap.Error(err))
 		return nil, err
 	}
-	return cinema, err
+	return c, err
 }
 
-func (s *cinemaUsecase) Create(data dto.CinemaRequest) (*entity.Cinema, error) {
+func (s *cinemaUsecase) Create(data dto.CinemaRequest) (*dto.CinemaResponse, error) {
 	cinema := entity.Cinema{
 		Name: data.Name,
+		Location: data.Location,
 	}
-	newcinema, err := s.Repo.CinemaRepo.Create(cinema)
+	newCinema, err := s.Repo.CinemaRepo.Create(cinema)
 	if err != nil {
-		s.Logger.Error("Error create cinema Usecase: ", zap.Error(err))
+		s.Logger.Error("Error create cinema usecase: ", zap.Error(err))
 		return nil, err
 	}
-	return newcinema, err
+	response := dto.CinemaResponse{
+		CinemaID: newCinema.ID,
+		Name: newCinema.Name,
+		Location: newCinema.Location,
+	}
+	return &response, err
 }
 
 func (s *cinemaUsecase) Update(id int, data dto.CinemaRequest) error {
 	cinema := entity.Cinema{
 		Name: data.Name,
+		Location: data.Location,
 	}
 	err := s.Repo.CinemaRepo.Update(id, &cinema)
 	if err != nil {
-		s.Logger.Error("Error update cinema Usecase: ", zap.Error(err))
+		s.Logger.Error("Error update cinema usecase: ", zap.Error(err))
 		return err
 	}
 	return nil
@@ -95,7 +111,7 @@ func (s *cinemaUsecase) Update(id int, data dto.CinemaRequest) error {
 func (s *cinemaUsecase) Delete(id int) error {
 	err := s.Repo.CinemaRepo.Delete(id)
 	if err != nil {
-		s.Logger.Error("Error delete cinema Usecase: ", zap.Error(err))
+		s.Logger.Error("Error delete cinema usecase: ", zap.Error(err))
 		return err
 	}
 	return nil

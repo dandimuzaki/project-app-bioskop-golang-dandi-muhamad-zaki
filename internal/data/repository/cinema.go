@@ -14,7 +14,7 @@ import (
 
 type CinemaRepository interface{
 	GetAll(q dto.PaginationQuery) ([]entity.Cinema, int, error)
-	GetByID(id int) (*entity.Cinema, error)
+	GetByID(id int) (*dto.CinemaResponse, error)
 	Create(cinema entity.Cinema) (*entity.Cinema, error)
 	Update(id int, w *entity.Cinema) error
 	Delete(id int) error
@@ -66,22 +66,22 @@ func (r *cinemaRepository) GetAll(q dto.PaginationQuery) ([]entity.Cinema, int, 
 
 	var cinemas []entity.Cinema
 	for rows.Next() {
-		var w entity.Cinema
-		err := rows.Scan(&w.ID, &w.Name, &w.Location, &w.CreatedAt, &w.UpdatedAt)
+		var c entity.Cinema
+		err := rows.Scan(&c.ID, &c.Name, &c.Location, &c.CreatedAt, &c.UpdatedAt)
 		if err != nil {
 			r.Logger.Error("Error scan cinema: ", zap.Error(err))
 			return nil, 0, err
 		}
-		cinemas = append(cinemas, w)
+		cinemas = append(cinemas, c)
 	}
 	return cinemas, total, nil
 }
 
-func (r *cinemaRepository) GetByID(id int) (*entity.Cinema, error) {
-	var cinema entity.Cinema
-	query := "SELECT id, name, location, created_at, updated_at FROM cinemas WHERE id = $1 AND deleted_at IS NULL"
+func (r *cinemaRepository) GetByID(id int) (*dto.CinemaResponse, error) {
+	var cinema dto.CinemaResponse
+	query := "SELECT id, name, location FROM cinemas WHERE id = $1 AND deleted_at IS NULL"
 
-	err := r.db.QueryRow(context.Background(), query, id).Scan(&cinema.ID, &cinema.Name, &cinema.Location, &cinema.CreatedAt, &cinema.UpdatedAt)
+	err := r.db.QueryRow(context.Background(), query, id).Scan(&cinema.CinemaID, &cinema.Name, &cinema.Location)
 
 	if err == pgx.ErrNoRows {
 		r.Logger.Error("Error not found cinema: ", zap.Error(err))
@@ -99,7 +99,7 @@ func (r *cinemaRepository) GetByID(id int) (*entity.Cinema, error) {
 func (r *cinemaRepository) Create(cinema entity.Cinema) (*entity.Cinema, error) {
 	query := `
 		INSERT INTO cinemas (name, location, created_at, updated_at)
-		VALUES ($1, NOW(), NOW())
+		VALUES ($1, $2, NOW(), NOW())
 		RETURNING id
 	`
 	err := r.db.QueryRow(context.Background(), query, cinema.Name, cinema.Location).Scan(&cinema.ID)
@@ -113,16 +113,17 @@ func (r *cinemaRepository) Create(cinema entity.Cinema) (*entity.Cinema, error) 
 	return &cinema, nil
 }
 
-func (r *cinemaRepository) Update(id int, w *entity.Cinema) error {
+func (r *cinemaRepository) Update(id int, c *entity.Cinema) error {
 	query := `
 		UPDATE cinemas
 		SET name = COALESCE($1, name),
+		location = COALESCE($2, location),
 		updated_at = NOW()
-		WHERE id = $2 AND deleted_at IS NULL
+		WHERE id = $3 AND deleted_at IS NULL
 	`
 
 	result, err := r.db.Exec(context.Background(), query,
-		&w.Name, id,
+		&c.Name, &c.Location, id,
 	)
 
 	rowsAffected := result.RowsAffected()

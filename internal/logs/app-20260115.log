@@ -1,0 +1,7 @@
+2026-01-15T19:21:33.741+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=1", "Duration": "272.573ms"}
+2026-01-15T19:22:07.549+0700	ERROR	repository/screening.go:61	Error query count screenings: 	{"error": "no rows in result set"}
+2026-01-15T19:22:07.552+0700	ERROR	usecase/screening.go:36	Error get all screenings Usecase: 	{"error": "no rows in result set"}
+2026-01-15T19:22:07.554+0700	ERROR	adaptor/screening.go:63	Error handling get screenings: 	{"error": "no rows in result set"}
+2026-01-15T19:22:07.560+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=2026-02-02", "Duration": "44.1755ms"}
+2026-01-15T19:22:26.510+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=02-02-2026", "Duration": "578.2616ms"}
+2026-01-15T19:23:38.067+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "61.73ms"}

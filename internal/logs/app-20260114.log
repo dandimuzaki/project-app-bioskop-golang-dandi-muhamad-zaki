@@ -1,0 +1,16 @@
+2026-01-14T16:32:45.796+0700	ERROR	adaptor/booking.go:33	Error decode request body to dto booking request: 	{"error": "EOF"}
+2026-01-14T16:32:45.828+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "125.3077ms"}
+2026-01-14T16:33:46.468+0700	ERROR	adaptor/booking.go:33	Error decode request body to dto booking request: 	{"error": "EOF"}
+2026-01-14T16:33:46.468+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "16.1336ms"}
+2026-01-14T16:33:50.843+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "14.9028ms"}
+2026-01-14T16:34:43.653+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=1", "Duration": "79.0942ms"}
+2026-01-14T16:34:52.444+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "36.4019ms"}
+2026-01-14T16:35:39.645+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "152.3055ms"}
+2026-01-14T16:36:19.708+0700	ERROR	repository/booking.go:60	Error query create booking_seats: 	{"error": "ERROR: duplicate key value violates unique constraint \"booking_seats_screening_id_seat_id_key\" (SQLSTATE 23505)"}
+2026-01-14T16:36:19.719+0700	ERROR	usecase/booking.go:29	Error create booking usecase: 	{"error": "ERROR: duplicate key value violates unique constraint \"booking_seats_screening_id_seat_id_key\" (SQLSTATE 23505)"}
+2026-01-14T16:36:19.720+0700	ERROR	adaptor/booking.go:52	Error handling create booking: 	{"error": "ERROR: duplicate key value violates unique constraint \"booking_seats_screening_id_seat_id_key\" (SQLSTATE 23505)"}
+2026-01-14T16:36:19.720+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "75.289ms"}
+2026-01-14T16:37:43.095+0700	ERROR	repository/booking.go:60	Error query create booking_seats: 	{"error": "ERROR: duplicate key value violates unique constraint \"booking_seats_screening_id_seat_id_key\" (SQLSTATE 23505)"}
+2026-01-14T16:37:43.096+0700	ERROR	usecase/booking.go:29	Error create booking usecase: 	{"error": "ERROR: duplicate key value violates unique constraint \"booking_seats_screening_id_seat_id_key\" (SQLSTATE 23505)"}
+2026-01-14T16:37:43.097+0700	ERROR	adaptor/booking.go:52	Error handling create booking: 	{"error": "ERROR: duplicate key value violates unique constraint \"booking_seats_screening_id_seat_id_key\" (SQLSTATE 23505)"}
+2026-01-14T16:37:43.097+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "8.0853ms"}

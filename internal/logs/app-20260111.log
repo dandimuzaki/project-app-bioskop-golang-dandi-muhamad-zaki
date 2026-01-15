@@ -1,0 +1,101 @@
+2026-01-11T11:52:32.225+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "PUT", "URL": "/api/v1/studios?page=a&limit=a", "Duration": "133.8549ms"}
+2026-01-11T11:52:40.832+0700	ERROR	utils/format.go:47	Error convert string to int: 	{"error": "strconv.Atoi: parsing \"a\": invalid syntax"}
+2026-01-11T11:52:40.845+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/studios?page=a&limit=a", "Duration": "15.0057ms"}
+2026-01-11T11:52:50.955+0700	ERROR	repository/studio.go:63	Error query get all studios: 	{"error": "ERROR: column \"type\" does not exist (SQLSTATE 42703)"}
+2026-01-11T11:52:50.956+0700	ERROR	usecase/studio.go:35	Error get all studios Usecase: 	{"error": "ERROR: column \"type\" does not exist (SQLSTATE 42703)"}
+2026-01-11T11:52:50.956+0700	ERROR	adaptor/studio.go:39	Error handling get studios: 	{"error": "ERROR: column \"type\" does not exist (SQLSTATE 42703)"}
+2026-01-11T11:52:50.956+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/studios", "Duration": "62.6014ms"}
+2026-01-11T11:54:28.747+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/studios", "Duration": "21.2059ms"}
+2026-01-11T12:00:14.011+0700	ERROR	repository/studio.go:112	Error commit db transaction: 
+2026-01-11T12:01:34.518+0700	ERROR	repository/studio.go:112	Error commit db transaction: 
+2026-01-11T12:01:34.532+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/studios", "Duration": "210.902ms"}
+2026-01-11T12:07:33.023+0700	ERROR	repository/studio.go:112	Error commit db transaction: 
+2026-01-11T12:07:33.034+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/studios", "Duration": "155.4392ms"}
+2026-01-11T19:01:32.085+0700	ERROR	repository/genre.go:61	Error query get all genres: 	{"error": "ERROR: column \"updated_at\" does not exist (SQLSTATE 42703)"}
+2026-01-11T19:01:32.101+0700	ERROR	usecase/genre.go:34	Error get all genres usecase: 	{"error": "ERROR: column \"updated_at\" does not exist (SQLSTATE 42703)"}
+2026-01-11T19:01:32.105+0700	ERROR	adaptor/genre.go:39	Error handling get genres: 	{"error": "ERROR: column \"updated_at\" does not exist (SQLSTATE 42703)"}
+2026-01-11T19:01:32.114+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/genres", "Duration": "269.0986ms"}
+2026-01-11T19:04:07.234+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/genres", "Duration": "84.072ms"}
+2026-01-11T19:05:32.657+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/genres", "Duration": "67.991ms"}
+2026-01-11T19:05:40.324+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/genres", "Duration": "2.2992ms"}
+2026-01-11T19:17:12.027+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "157.9709ms"}
+2026-01-11T19:17:45.888+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/genres", "Duration": "33.7836ms"}
+2026-01-11T19:17:58.354+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/genres", "Duration": "2.1316ms"}
+2026-01-11T19:18:02.965+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/genres", "Duration": "14.3198ms"}
+2026-01-11T19:18:59.950+0700	ERROR	adaptor/movie.go:84	Error decode request body to dto movie request: 	{"error": "json: cannot unmarshal string into Go struct field MovieRequest.duration_minute of type int"}
+2026-01-11T19:18:59.963+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "156.5684ms"}
+2026-01-11T19:19:16.455+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "20.1846ms"}
+2026-01-11T19:19:28.649+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "909.9µs"}
+2026-01-11T19:19:46.010+0700	ERROR	repository/movie.go:177	Error query create movie: 	{"error": "ERROR: column \"created_at\" of relation \"movies\" does not exist (SQLSTATE 42703)"}
+2026-01-11T19:19:46.013+0700	ERROR	usecase/movie.go:74	Error create movie Usecase: 	{"error": "ERROR: column \"created_at\" of relation \"movies\" does not exist (SQLSTATE 42703)"}
+2026-01-11T19:19:46.014+0700	ERROR	adaptor/movie.go:99	Error handling create movie: 	{"error": "ERROR: column \"created_at\" of relation \"movies\" does not exist (SQLSTATE 42703)"}
+2026-01-11T19:19:46.015+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "77.6628ms"}
+2026-01-11T19:21:14.885+0700	ERROR	repository/movie.go:186	Error query create genre_movies: 	{"error": "ERROR: syntax error at or near \"gm\" (SQLSTATE 42601)"}
+2026-01-11T19:21:14.886+0700	ERROR	usecase/movie.go:74	Error create movie Usecase: 	{"error": "ERROR: syntax error at or near \"gm\" (SQLSTATE 42601)"}
+2026-01-11T19:21:14.886+0700	ERROR	adaptor/movie.go:99	Error handling create movie: 	{"error": "ERROR: syntax error at or near \"gm\" (SQLSTATE 42601)"}
+2026-01-11T19:21:14.889+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "46.4023ms"}
+2026-01-11T19:31:52.919+0700	ERROR	repository/movie.go:186	Error query create genre_movies: 	{"error": "ERROR: syntax error at or near \"gm\" (SQLSTATE 42601)"}
+2026-01-11T19:31:52.929+0700	ERROR	usecase/movie.go:74	Error create movie usecase: 	{"error": "ERROR: syntax error at or near \"gm\" (SQLSTATE 42601)"}
+2026-01-11T19:31:52.930+0700	ERROR	adaptor/movie.go:99	Error handling create movie: 	{"error": "ERROR: syntax error at or near \"gm\" (SQLSTATE 42601)"}
+2026-01-11T19:31:52.933+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "116.8631ms"}
+2026-01-11T19:32:48.976+0700	ERROR	repository/movie.go:186	Error query create genre_movies: 	{"error": "no rows in result set"}
+2026-01-11T19:32:48.984+0700	ERROR	usecase/movie.go:74	Error create movie usecase: 	{"error": "no rows in result set"}
+2026-01-11T19:32:48.988+0700	ERROR	adaptor/movie.go:99	Error handling create movie: 	{"error": "no rows in result set"}
+2026-01-11T19:32:48.993+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "126.335ms"}
+2026-01-11T19:33:18.249+0700	ERROR	repository/movie.go:57	Error query count movies: 	{"error": "expected 1 arguments, got 0"}
+2026-01-11T19:33:18.249+0700	ERROR	usecase/movie.go:35	Error get all movies usecase: 	{"error": "expected 1 arguments, got 0"}
+2026-01-11T19:33:18.250+0700	ERROR	adaptor/movie.go:46	Error handling get movies: 	{"error": "expected 1 arguments, got 0"}
+2026-01-11T19:33:18.251+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/movies", "Duration": "11.4941ms"}
+2026-01-11T19:35:18.690+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/movies", "Duration": "80.4584ms"}
+2026-01-11T19:35:23.827+0700	ERROR	repository/movie.go:186	Error query create genre_movies: 	{"error": "no rows in result set"}
+2026-01-11T19:35:23.832+0700	ERROR	usecase/movie.go:74	Error create movie usecase: 	{"error": "no rows in result set"}
+2026-01-11T19:35:23.832+0700	ERROR	adaptor/movie.go:99	Error handling create movie: 	{"error": "no rows in result set"}
+2026-01-11T19:35:23.833+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "52.5461ms"}
+2026-01-11T19:48:33.266+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/movies", "Duration": "33.6584ms"}
+2026-01-11T19:51:46.353+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "67.1237ms"}
+2026-01-11T19:52:01.137+0700	ERROR	repository/movie.go:186	Error query create genre_movies: 	{"error": "number of field descriptions must equal number of destinations, got 1 and 0"}
+2026-01-11T19:52:01.143+0700	ERROR	usecase/movie.go:74	Error create movie usecase: 	{"error": "number of field descriptions must equal number of destinations, got 1 and 0"}
+2026-01-11T19:52:01.144+0700	ERROR	adaptor/movie.go:99	Error handling create movie: 	{"error": "number of field descriptions must equal number of destinations, got 1 and 0"}
+2026-01-11T19:52:01.145+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "39.583ms"}
+2026-01-11T19:55:06.457+0700	ERROR	repository/movie.go:187	Error query create genre_movies: 	{"error": "number of field descriptions must equal number of destinations, got 1 and 0"}
+2026-01-11T19:55:06.473+0700	ERROR	usecase/movie.go:74	Error create movie usecase: 	{"error": "number of field descriptions must equal number of destinations, got 1 and 0"}
+2026-01-11T19:55:06.476+0700	ERROR	adaptor/movie.go:99	Error handling create movie: 	{"error": "number of field descriptions must equal number of destinations, got 1 and 0"}
+2026-01-11T19:55:06.481+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "147.8155ms"}
+2026-01-11T19:57:12.555+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "118.1917ms"}
+2026-01-11T20:00:21.755+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "83.5678ms"}
+2026-01-11T20:00:50.496+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/movies", "Duration": "24.7294ms"}
+2026-01-11T20:01:14.476+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/movies?genre=animation", "Duration": "51.1578ms"}
+2026-01-11T20:01:23.597+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/movies?genre=fantasy", "Duration": "4.4609ms"}
+2026-01-11T20:01:56.391+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/movies?page=1&limit=10", "Duration": "2.6673ms"}
+2026-01-11T20:02:19.494+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/movies?genre=fantasy", "Duration": "3.1018ms"}
+2026-01-11T20:04:14.541+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "48.7241ms"}
+2026-01-11T20:04:20.413+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "30.5822ms"}
+2026-01-11T20:04:37.266+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/genres", "Duration": "10.1339ms"}
+2026-01-11T20:04:44.495+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/genres", "Duration": "3.6658ms"}
+2026-01-11T20:05:48.844+0700	ERROR	repository/movie.go:206	Error commit db transaction: 
+2026-01-11T20:05:48.846+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "PUT", "URL": "/api/v1/movies/2", "Duration": "58.1901ms"}
+2026-01-11T20:05:58.453+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/movies?page=1&limit=10", "Duration": "8.6997ms"}
+2026-01-11T20:07:27.418+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "DELETE", "URL": "/api/v1/movies/2", "Duration": "8.7587ms"}
+2026-01-11T20:08:01.891+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/movies?page=1&limit=10", "Duration": "42.7003ms"}
+2026-01-11T20:09:31.657+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/genres", "Duration": "16.3254ms"}
+2026-01-11T20:09:39.504+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/genres", "Duration": "3.6416ms"}
+2026-01-11T20:09:50.905+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/genres", "Duration": "10.8724ms"}
+2026-01-11T20:10:03.400+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/genres?all=true", "Duration": "14.9216ms"}
+2026-01-11T20:10:50.360+0700	ERROR	adaptor/movie.go:84	Error decode request body to dto movie request: 	{"error": "json: cannot unmarshal string into Go struct field MovieRequest.duration_minute of type int"}
+2026-01-11T20:10:50.364+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "4.9806ms"}
+2026-01-11T20:10:57.948+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "16.3434ms"}
+2026-01-11T20:12:21.627+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/genres", "Duration": "5.8895ms"}
+2026-01-11T20:12:26.578+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/genres?all=true", "Duration": "1.1729ms"}
+2026-01-11T20:12:57.556+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "2.8389ms"}
+2026-01-11T20:13:03.548+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "99.799ms"}
+2026-01-11T20:14:17.183+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/genres", "Duration": "4.3162ms"}
+2026-01-11T20:14:31.725+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/genres?all=true", "Duration": "1.387ms"}
+2026-01-11T20:15:07.436+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/movies", "Duration": "8.9475ms"}
+2026-01-11T20:15:42.046+0700	ERROR	repository/studio.go:127	Error query create studio: 	{"error": "ERROR: invalid input value for enum studio_types: \"Premiere\" (SQLSTATE 22P02)"}
+2026-01-11T20:15:42.052+0700	ERROR	usecase/studio.go:74	Error create studio Usecase: 	{"error": "ERROR: invalid input value for enum studio_types: \"Premiere\" (SQLSTATE 22P02)"}
+2026-01-11T20:15:42.053+0700	ERROR	adaptor/studio.go:92	Error handling create studio: 	{"error": "ERROR: invalid input value for enum studio_types: \"Premiere\" (SQLSTATE 22P02)"}
+2026-01-11T20:15:42.053+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/studios", "Duration": "69.6104ms"}
+2026-01-11T20:16:44.864+0700	ERROR	repository/studio.go:112	Error commit db transaction: 
+2026-01-11T20:16:44.869+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/studios", "Duration": "239.8483ms"}
+2026-01-11T20:17:11.539+0700	ERROR	repository/studio.go:112	Error commit db transaction: 
+2026-01-11T20:17:11.539+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/studios", "Duration": "63.4958ms"}
