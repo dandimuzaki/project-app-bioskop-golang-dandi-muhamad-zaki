@@ -50,6 +50,7 @@ type PaymentRequest struct {
 }
 
 type UpdatePayment struct {
-	Status        string `json:"status"`
-	TransactionID string `json:"transaction_id"`
+	PaymentID     int     `json:"payment_id"`
+	Status        string  `json:"status"`
+	TransactionID *string `json:"transaction_id"`
 }

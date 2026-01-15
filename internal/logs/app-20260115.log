@@ -5,3 +5,9 @@
 2026-01-15T19:22:07.560+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=2026-02-02", "Duration": "44.1755ms"}
 2026-01-15T19:22:26.510+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=02-02-2026", "Duration": "578.2616ms"}
 2026-01-15T19:23:38.067+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "61.73ms"}
+2026-01-15T23:33:45.501+0700	ERROR	repository/seat.go:58	Error query get available seats: 	{"error": "number of field descriptions must equal number of destinations, got 3 and 2"}
+2026-01-15T23:33:45.513+0700	ERROR	usecase/seat.go:28	Error get available seats usecase: 	{"error": "number of field descriptions must equal number of destinations, got 3 and 2"}
+2026-01-15T23:33:45.514+0700	ERROR	adaptor/seat.go:43	Error handling get available seats: 	{"error": "number of field descriptions must equal number of destinations, got 3 and 2"}
+2026-01-15T23:33:45.535+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=1", "Duration": "206.8634ms"}
+2026-01-15T23:35:42.774+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=1", "Duration": "209.277ms"}
+2026-01-16T00:03:00.646+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "852.606ms"}

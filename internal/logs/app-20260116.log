@@ -1,0 +1,23 @@
+2026-01-16T00:05:22.096+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=1", "Duration": "236.0714ms"}
+2026-01-16T00:07:02.726+0700	ERROR	usecase/seat.go:28	Error get available seats usecase: 	{"error": "seats for this screening is already closed"}
+2026-01-16T00:07:02.739+0700	ERROR	adaptor/seat.go:43	Error handling get available seats: 	{"error": "seats for this screening is already closed"}
+2026-01-16T00:07:02.739+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=1", "Duration": "154.9152ms"}
+2026-01-16T00:07:12.378+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "61.3966ms"}
+2026-01-16T00:08:15.233+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=997", "Duration": "24.4732ms"}
+2026-01-16T00:08:56.162+0700	ERROR	repository/booking.go:51	Booking is closed for this screening: 	{"error": "number of field descriptions must equal number of destinations, got 1 and 0"}
+2026-01-16T00:08:56.166+0700	ERROR	usecase/booking.go:28	Error create booking usecase: 	{"error": "booking is closed for this screening"}
+2026-01-16T00:08:56.168+0700	ERROR	adaptor/booking.go:52	Error handling create booking: 	{"error": "booking is closed for this screening"}
+2026-01-16T00:08:56.168+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "34.2218ms"}
+2026-01-16T00:09:54.912+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=17-01-2026", "Duration": "24.9728ms"}
+2026-01-16T00:10:14.205+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=621", "Duration": "5.553ms"}
+2026-01-16T00:10:35.927+0700	ERROR	repository/booking.go:51	Booking is closed for this screening: 	{"error": "number of field descriptions must equal number of destinations, got 1 and 0"}
+2026-01-16T00:10:35.927+0700	ERROR	usecase/booking.go:28	Error create booking usecase: 	{"error": "booking is closed for this screening"}
+2026-01-16T00:10:35.929+0700	ERROR	adaptor/booking.go:52	Error handling create booking: 	{"error": "booking is closed for this screening"}
+2026-01-16T00:10:35.930+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "17.6532ms"}
+2026-01-16T00:18:56.198+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=16-01-2026", "Duration": "76.6998ms"}
+2026-01-16T00:20:09.973+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "47.2934ms"}
+2026-01-16T00:20:31.770+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "104.1639ms"}
+2026-01-16T00:22:24.903+0700	ERROR	repository/payment.go:127	Error query update payment: 	{"error": "ERROR: invalid input value for enum payment_status: \"\" (SQLSTATE 22P02)"}
+2026-01-16T00:22:24.907+0700	ERROR	usecase/payment.go:51	Error update payment usecase: 	{"error": "ERROR: invalid input value for enum payment_status: \"\" (SQLSTATE 22P02)"}
+2026-01-16T00:22:24.908+0700	ERROR	adaptor/payment.go:75	Error handling update payment: 	{"error": "ERROR: invalid input value for enum payment_status: \"\" (SQLSTATE 22P02)"}
+2026-01-16T00:22:24.909+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "35.1303ms"}

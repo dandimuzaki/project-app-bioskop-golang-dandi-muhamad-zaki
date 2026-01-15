@@ -137,6 +137,14 @@ func ApiV1(handler *adaptor.Handler, mw mCustom.MiddlewareCustom) *chi.Mux {
 			r.Get("/{id}", handler.ScreeningHandler.GetByID)
 		})
 	})
+
+	r.Route("/payments", func(r chi.Router) {
+		r.Route("/", func(r chi.Router) {
+			r.Use(mw.AuthMiddleware())
+			r.Post("/", handler.PaymentHandler.Create)
+			r.Post("/", handler.PaymentHandler.Callback)
+		})
+	})
 	
 	return r
 }

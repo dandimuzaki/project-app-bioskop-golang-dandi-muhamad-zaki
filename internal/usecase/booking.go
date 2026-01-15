@@ -44,7 +44,7 @@ func (u *bookingUsecase) Create(b dto.BookingRequest) (*dto.BookingResponse, err
 	
 	response := dto.BookingResponse{
 		BookingID: booking.ID,
-		BookingDate: screening.Date,
+		BookingDate: screening.StartTime.Format("02-01-2006"),
 		Movie: *movie,
 		Studio: dto.StudioResponse{
 			StudioID: studio.ID,

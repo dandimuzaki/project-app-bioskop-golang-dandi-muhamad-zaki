@@ -7,7 +7,7 @@ import (
 )
 
 type SeatUsecase interface {
-	GetAvailableSeats(screeningID int) ([]dto.SeatResponse, error)
+	GetSeats(screeningID int) ([]dto.SeatResponse, error)
 }
 
 type seatUsecase struct {
@@ -22,8 +22,8 @@ func NewSeatUsecase(repo *repository.Repository, log *zap.Logger) SeatUsecase {
 	}
 }
 
-func (u *seatUsecase) GetAvailableSeats(screeningID int) ([]dto.SeatResponse, error) {
-	seats, err := u.repo.SeatRepo.GetAvailableSeats(screeningID)
+func (u *seatUsecase) GetSeats(screeningID int) ([]dto.SeatResponse, error) {
+	seats, err := u.repo.SeatRepo.GetSeats(screeningID)
 	if err != nil {
 		u.Logger.Error("Error get available seats usecase: ", zap.Error(err))
 		return nil, err

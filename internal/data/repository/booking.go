@@ -28,23 +28,35 @@ func NewBookingRepository(db database.PgxIface, log *zap.Logger) BookingReposito
 
 func (r *bookingRepository) Create(b dto.BookingRequest) (*entity.Booking, error) {
 	// Handle db transaction
-	tx, err := r.db.Begin(context.Background()); 
+	tx, err := r.db.Begin(context.Background())
 	if err != nil {
-		r.Logger.Error("Error start db transaction: ", zap.Error(err))
 		return nil, err
 	}
 	defer func() {
 		if err != nil {
 			_ = tx.Rollback(context.Background())
-		} else {
-			err = tx.Commit(context.Background())
 		}
 	}()
 
+	// Validate screening
+	var screeningID int
+	query := `SELECT s.id
+FROM screenings s
+JOIN movies m ON m.id = s.movie_id
+WHERE s.id = $1
+  AND s.deleted_at IS NULL
+  AND NOW() < s.start_time + (m.duration_minute * INTERVAL '1 minute')
+`
+	err = tx.QueryRow(context.Background(), query, b.ScreeningID).Scan(&screeningID)
+	if err != nil {
+		r.Logger.Error("Booking is closed for this screening: ", zap.Error(err))
+		return nil, errors.New("booking is closed for this screening")
+	}
+
 	// Create booking
 	var booking entity.Booking
-	query := `INSERT INTO bookings (user_id, screening_id, status, expired_at, created_at, updated_at)
-	VALUES ($1, $2, 'pending', NOW() + interval '5 minute', NOW(), NOW()) RETURNING id, user_id, screening_id, status, expired_at, created_at, updated_at`
+	query = `INSERT INTO bookings (user_id, screening_id, status, expired_at, created_at, updated_at)
+	VALUES ($1, $2, 'pending', NOW() + interval '10 minute', NOW(), NOW()) RETURNING id, user_id, screening_id, status, expired_at, created_at, updated_at`
 	err = tx.QueryRow(context.Background(), query, b.UserID, b.ScreeningID).Scan(&booking.ID, &booking.UserID, &booking.ScreeningID, &booking.Status, &booking.ExpiredAt, &booking.CreatedAt, &booking.UpdatedAt)
 	if err != nil {
 		r.Logger.Error("Error query create bookings: ", zap.Error(err))
@@ -72,6 +84,11 @@ func (r *bookingRepository) Create(b dto.BookingRequest) (*entity.Booking, error
 		}
 
 		booking.Seats = append(booking.Seats, seat)
+	}
+
+	err = tx.Commit(context.Background())
+	if err != nil {
+		return nil, err
 	}
 
 	return &booking, nil

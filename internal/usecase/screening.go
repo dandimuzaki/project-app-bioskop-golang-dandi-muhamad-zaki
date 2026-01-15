@@ -77,12 +77,15 @@ func (s *screeningUsecase) GetByCinema(q dto.ScreeningQuery) ([]dto.MovieScreeni
 			}
     }
 
+		startTime := sc.StartTime.Format("15.04")
+		endTime := sc.EndTime.Format("15.04")
+
     result[sc.MovieID].Screenings = append(
 			result[sc.MovieID].Screenings,
 			dto.ScreeningResponse{
 				ScreeningID: sc.ID,
-				StartTime: sc.StartTime,
-				EndTime: sc.EndTime,
+				StartTime: startTime,
+				EndTime: endTime,
 			},
     )
 	}
@@ -103,13 +106,19 @@ func (s *screeningUsecase) GetByID(id int) (*dto.MovieScreeningRow, error) {
 	}
 	m, _ := s.Repo.MovieRepo.GetByID(sc.MovieID)
 	st, _ := s.Repo.StudioRepo.GetByID(sc.StudioID)
+
+	// Format time into string
+	startTime := sc.StartTime.Format("15.04")
+	endTime := sc.EndTime.Format("15.04")
+	date := sc.StartTime.Format("02-01-2006")
+
 	response := &dto.MovieScreeningRow{
 		Screening: dto.ScreeningResponse{
 			ScreeningID: sc.ID,
-			StartTime: sc.StartTime,
-			EndTime: sc.EndTime,
+			StartTime: startTime,
+			EndTime: endTime,
 		},
-		Date: sc.Date,
+		Date: date,
 		Movie: *m,
 		Studio: dto.StudioResponse{
 			StudioID: st.ID,

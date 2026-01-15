@@ -495,7 +495,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/v1/screenings?cinemaId=1&date=2026-02-02",
+              "raw": "http://localhost:8080/api/v1/screenings?cinemaId=1",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -511,11 +511,6 @@
                   "key": "cinemaId",
                   "value": "1",
                   "uuid": "cfeebf33-4590-46af-b874-df67d2f4719a"
-                },
-                {
-                  "key": "date",
-                  "value": "2026-02-02",
-                  "uuid": "efd9a2b9-f075-47cc-b1d9-0dc98cc4f0ff"
                 }
               ]
             }
@@ -535,7 +530,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/v1/available-seats?screeningId=1",
+              "raw": "http://localhost:8080/api/v1/available-seats?screeningId=621",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -549,7 +544,7 @@
               "query": [
                 {
                   "key": "screeningId",
-                  "value": "1",
+                  "value": "621",
                   "uuid": "97ffb809-f361-415e-8cc5-660becdb23ff"
                 }
               ]
@@ -571,7 +566,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"screening_id\": 1,\r\n    \"seats\": [3,4,5]\r\n}",
+              "raw": "{\r\n    \"screening_id\": 225,\r\n    \"seats\": [141, 142]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -596,6 +591,43 @@
         }
       ],
       "id": "de9a17f2-6db4-4dcb-8d48-8e4f267b2600"
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "Create Payment",
+          "id": "f1f3fdff-316a-416e-9221-b832c45d6107",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"booking_id\": 4\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/payments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "payments"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "b04c2699-3c88-4394-96ea-fa7cc8154c90"
     }
   ],
   "auth": {

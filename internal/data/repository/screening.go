@@ -104,11 +104,8 @@ func (r *screeningRepository) GetByCinema(q dto.ScreeningQuery) ([]entity.Screen
 
 		// Convert to WIB
 		loc, _ := time.LoadLocation("Asia/Jakarta")
-		startTimeWIB := startTime.In(loc)
-		endTimeWIB := endTime.In(loc)
-		s.StartTime = startTimeWIB.Format("15.04")
-		s.EndTime = endTimeWIB.Format("15.04")
-		s.Date = startTimeWIB.Format("02-01-2006")
+		s.StartTime = startTime.In(loc)
+		s.EndTime = endTime.In(loc)
 
     screenings = append(screenings, s)
 	}
@@ -136,10 +133,8 @@ func (r *screeningRepository) GetByID(id int) (*entity.Screening, error) {
 
 	// Convert to WIB
 	loc, _ := time.LoadLocation("Asia/Jakarta")
-	startTimeWIB := startTime.In(loc)
-	endTimeWIB := endTime.In(loc)
-	s.StartTime = startTimeWIB.Format("15.04")
-	s.EndTime = endTimeWIB.Format("15.04")
+	s.StartTime = startTime.In(loc)
+	s.EndTime = endTime.In(loc)
 
 	if err == pgx.ErrNoRows {
 		r.Logger.Error("Error not found screening: ", zap.Error(err))

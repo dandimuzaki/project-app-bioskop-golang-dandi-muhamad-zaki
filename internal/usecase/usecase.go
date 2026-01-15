@@ -15,6 +15,7 @@ type Usecase struct {
 	ScreeningUsecase ScreeningUsecase
 	SeatUsecase SeatUsecase
 	BookingUsecase BookingUsecase
+	PaymentUsecase PaymentUsecase
 }
 
 func NewUsecase(repo *repository.Repository, log *zap.Logger) Usecase {
@@ -28,5 +29,6 @@ func NewUsecase(repo *repository.Repository, log *zap.Logger) Usecase {
 		ScreeningUsecase: NewScreeningUsecase(repo, log),
 		SeatUsecase: NewSeatUsecase(repo, log),
 		BookingUsecase: NewBookingUsecase(repo, log),
+		PaymentUsecase: NewPaymentUsecase(repo, log),
 	}
 }

@@ -52,6 +52,7 @@ type MovieScreeningRow struct {
 type SeatResponse struct {
 	ID int `json:"seat_id"`
 	SeatCode string `json:"seat_code"`
+	Status string `json:"status"`
 }
 
 type BookingResponse struct {
@@ -64,4 +65,9 @@ type BookingResponse struct {
 	TotalAmount float64 `json:"total_amount"`
 	Status      string `json:"status"`
 	ExpiredAt   time.Time `json:"expired_at"`
+}
+
+type PaymentResponse struct {
+	PaymentID int `json:"payment_id"`
+	TransactionID *string `json:"transaction_id"`
 }

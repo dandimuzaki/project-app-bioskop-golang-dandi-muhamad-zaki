@@ -15,6 +15,7 @@ type Handler struct{
 	ScreeningHandler ScreeningHandler
 	SeatHandler SeatHandler
 	BookingHandler BookingHandler
+	PaymentHandler PaymentHandler
 }
 
 func NewHandler(uc usecase.Usecase, log *zap.Logger, config utils.Configuration) Handler {
@@ -27,5 +28,6 @@ func NewHandler(uc usecase.Usecase, log *zap.Logger, config utils.Configuration)
 		ScreeningHandler: NewScreeningHandler(uc, log, config),
 		SeatHandler: NewSeatHandler(uc, log, config),
 		BookingHandler: NewBookingHandler(uc, log, config),
+		PaymentHandler: NewPaymentHandler(uc, log, config),
 	}
 }

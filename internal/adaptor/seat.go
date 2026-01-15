@@ -38,7 +38,7 @@ func (h *SeatHandler) GetAvailableSeat(w http.ResponseWriter, r *http.Request) {
 	} 
 
 	// Execute get available seats
-	result, err := h.Usecase.SeatUsecase.GetAvailableSeats(screeningID)
+	result, err := h.Usecase.SeatUsecase.GetSeats(screeningID)
 	if err != nil {
 		h.Logger.Error("Error handling get available seats: ", zap.Error(err))
 		utils.ResponseFailed(w, http.StatusBadRequest, "get available seats failed", err.Error())
