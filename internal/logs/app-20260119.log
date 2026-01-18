@@ -1,0 +1,31 @@
+2026-01-19T05:33:42.524+0700	ERROR	usecase/auth.go:47	Error find user by email: 	{"error": "no rows in result set"}
+2026-01-19T05:33:42.553+0700	ERROR	adaptor/auth.go:48	Error handling login user: 	{"error": "no rows in result set"}
+2026-01-19T05:33:42.577+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/auth/login", "Duration": "517.2551ms"}
+2026-01-19T05:35:05.458+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/auth/logout", "Duration": "72.515ms"}
+2026-01-19T05:35:20.252+0700	ERROR	repository/session.go:55	Error query validate token: 	{"error": "no rows in result set"}
+2026-01-19T05:35:20.265+0700	ERROR	usecase/auth.go:247	Error validate token usecase: 	{"error": "no rows in result set"}
+2026-01-19T05:35:20.270+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/seats?screeningId=909", "Duration": "36.4206ms"}
+2026-01-19T05:37:44.983+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/auth/register", "Duration": "456.922ms"}
+2026-01-19T05:37:48.349+0700	INFO	utils/send_email.go:40	Email send successfully
+2026-01-19T05:38:28.620+0700	ERROR	repository/session.go:55	Error query validate token: 	{"error": "no rows in result set"}
+2026-01-19T05:38:28.621+0700	ERROR	usecase/auth.go:247	Error validate token usecase: 	{"error": "no rows in result set"}
+2026-01-19T05:38:28.623+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/verify", "Duration": "10.4087ms"}
+2026-01-19T05:54:14.161+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/auth/register", "Duration": "745.6492ms"}
+2026-01-19T05:54:16.983+0700	INFO	utils/send_email.go:40	Email send successfully
+2026-01-19T05:54:56.478+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/auth/verify", "Duration": "716.2707ms"}
+2026-01-19T05:55:41.803+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/cinemas?page=2&limit=10", "Duration": "127.233ms"}
+2026-01-19T05:55:51.877+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/cinemas?page=1&limit=10", "Duration": "2.1322ms"}
+2026-01-19T05:56:36.845+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=19-01-2026", "Duration": "1.221885s"}
+2026-01-19T06:00:02.738+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/auth/register", "Duration": "508.0181ms"}
+2026-01-19T06:00:06.106+0700	INFO	utils/send_email.go:40	Email send successfully
+2026-01-19T06:00:51.727+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/auth/verify", "Duration": "152.2893ms"}
+2026-01-19T06:01:38.658+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/cinemas?page=1&limit=10", "Duration": "34.6905ms"}
+2026-01-19T06:02:18.008+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=19-01-2026", "Duration": "124.7303ms"}
+2026-01-19T06:03:15.975+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/seats?screeningId=909", "Duration": "154.0063ms"}
+2026-01-19T06:04:30.992+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "163.4136ms"}
+2026-01-19T06:05:56.984+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/payments/method", "Duration": "16.3807ms"}
+2026-01-19T06:06:25.881+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "65.9535ms"}
+2026-01-19T06:07:31.242+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "63.0772ms"}
+2026-01-19T06:07:34.311+0700	INFO	utils/send_email.go:40	Email send successfully
+2026-01-19T06:08:31.915+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/bookings", "Duration": "29.8711ms"}
+2026-01-19T06:09:01.453+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/auth/logout", "Duration": "4.1669ms"}

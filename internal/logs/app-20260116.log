@@ -21,3 +21,64 @@
 2026-01-16T00:22:24.907+0700	ERROR	usecase/payment.go:51	Error update payment usecase: 	{"error": "ERROR: invalid input value for enum payment_status: \"\" (SQLSTATE 22P02)"}
 2026-01-16T00:22:24.908+0700	ERROR	adaptor/payment.go:75	Error handling update payment: 	{"error": "ERROR: invalid input value for enum payment_status: \"\" (SQLSTATE 22P02)"}
 2026-01-16T00:22:24.909+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "35.1303ms"}
+2026-01-16T17:29:20.015+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "346.4415ms"}
+2026-01-16T17:29:48.837+0700	ERROR	usecase/seat.go:28	Error get available seats usecase: 	{"error": "seats for this screening is already closed"}
+2026-01-16T17:29:48.840+0700	ERROR	adaptor/seat.go:43	Error handling get available seats: 	{"error": "seats for this screening is already closed"}
+2026-01-16T17:29:48.842+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=1479", "Duration": "80.2417ms"}
+2026-01-16T17:30:29.147+0700	ERROR	usecase/seat.go:28	Error get available seats usecase: 	{"error": "seats for this screening is already closed"}
+2026-01-16T17:30:29.147+0700	ERROR	adaptor/seat.go:43	Error handling get available seats: 	{"error": "seats for this screening is already closed"}
+2026-01-16T17:30:29.147+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=228", "Duration": "19.3376ms"}
+2026-01-16T21:14:20.144+0700	ERROR	repository/screening.go:65	Error query count screenings: 	{"error": "no rows in result set"}
+2026-01-16T21:14:20.153+0700	ERROR	usecase/screening.go:36	Error get all screenings Usecase: 	{"error": "no rows in result set"}
+2026-01-16T21:14:20.155+0700	ERROR	adaptor/screening.go:63	Error handling get screenings: 	{"error": "no rows in result set"}
+2026-01-16T21:14:20.162+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "57.135ms"}
+2026-01-16T21:14:44.605+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/movies?page=1&limit=10", "Duration": "45.2304ms"}
+2026-01-16T21:16:15.084+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/studios?all=true", "Duration": "27.3042ms"}
+2026-01-16T21:19:11.095+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "285.1428ms"}
+2026-01-16T21:25:53.226+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "312.8439ms"}
+2026-01-16T21:26:38.875+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "3.6921665s"}
+2026-01-16T21:28:10.164+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "102.4429ms"}
+2026-01-16T21:28:51.431+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/screenings", "Duration": "59.6246ms"}
+2026-01-16T21:29:04.224+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "334.1388ms"}
+2026-01-16T21:30:28.423+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=17-01-2026", "Duration": "25.2021ms"}
+2026-01-16T21:30:48.894+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=189", "Duration": "27.6917ms"}
+2026-01-16T21:31:19.195+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1", "Duration": "12.3336ms"}
+2026-01-16T21:31:35.162+0700	ERROR	usecase/seat.go:28	Error get available seats usecase: 	{"error": "seats for this screening is already closed"}
+2026-01-16T21:31:35.166+0700	ERROR	adaptor/seat.go:43	Error handling get available seats: 	{"error": "seats for this screening is already closed"}
+2026-01-16T21:31:35.166+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=724", "Duration": "15.5214ms"}
+2026-01-16T21:32:39.271+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=17-01-2026", "Duration": "10.122ms"}
+2026-01-16T21:33:00.370+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=905", "Duration": "2.4457ms"}
+2026-01-16T21:33:38.545+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "43.9948ms"}
+2026-01-16T21:36:38.600+0700	ERROR	repository/payment.go:127	Error query update payment: 	{"error": "ERROR: invalid input value for enum payment_status: \"\" (SQLSTATE 22P02)"}
+2026-01-16T21:36:38.608+0700	ERROR	usecase/payment.go:51	Error update payment usecase: 	{"error": "ERROR: invalid input value for enum payment_status: \"\" (SQLSTATE 22P02)"}
+2026-01-16T21:36:38.609+0700	ERROR	adaptor/payment.go:75	Error handling update payment: 	{"error": "ERROR: invalid input value for enum payment_status: \"\" (SQLSTATE 22P02)"}
+2026-01-16T21:36:38.609+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "39.8955ms"}
+2026-01-16T21:38:07.577+0700	ERROR	adaptor/payment.go:32	Error decode request body to dto payment request: 	{"error": "json: cannot unmarshal number into Go struct field PaymentRequest.amount of type string"}
+2026-01-16T21:38:07.590+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "99.8488ms"}
+2026-01-16T21:38:58.947+0700	ERROR	repository/payment.go:79	Error query create payment: 	{"error": "ERROR: column \"payment_method\" of relation \"payments\" does not exist (SQLSTATE 42703)"}
+2026-01-16T21:38:58.953+0700	ERROR	usecase/payment.go:30	Error create payment usecase: 	{"error": "ERROR: column \"payment_method\" of relation \"payments\" does not exist (SQLSTATE 42703)"}
+2026-01-16T21:38:58.954+0700	ERROR	adaptor/payment.go:47	Error handling create payment: 	{"error": "ERROR: column \"payment_method\" of relation \"payments\" does not exist (SQLSTATE 42703)"}
+2026-01-16T21:38:58.958+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "218.6889ms"}
+2026-01-16T21:46:14.117+0700	ERROR	repository/payment.go:53	Error query get booking: 	{"error": "no rows in result set"}
+2026-01-16T21:46:14.126+0700	ERROR	usecase/payment.go:30	Error create payment usecase: 	{"error": "no rows in result set"}
+2026-01-16T21:46:14.128+0700	ERROR	adaptor/payment.go:47	Error handling create payment: 	{"error": "no rows in result set"}
+2026-01-16T21:46:14.133+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "144.435ms"}
+2026-01-16T21:46:26.814+0700	ERROR	repository/booking.go:73	Error query create booking_seats: 	{"error": "ERROR: duplicate key value violates unique constraint \"booking_seats_screening_id_seat_id_key\" (SQLSTATE 23505)"}
+2026-01-16T21:46:26.819+0700	ERROR	usecase/booking.go:28	Error create booking usecase: 	{"error": "one or more seats already booked"}
+2026-01-16T21:46:26.858+0700	ERROR	adaptor/booking.go:52	Error handling create booking: 	{"error": "one or more seats already booked"}
+2026-01-16T21:46:26.858+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "121.5924ms"}
+2026-01-16T21:51:10.913+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "198.2582ms"}
+2026-01-16T21:51:20.073+0700	ERROR	repository/payment.go:80	Error query create payment: 	{"error": "ERROR: null value in column \"transaction_id\" of relation \"payments\" violates not-null constraint (SQLSTATE 23502)"}
+2026-01-16T21:51:20.078+0700	ERROR	usecase/payment.go:30	Error create payment usecase: 	{"error": "ERROR: null value in column \"transaction_id\" of relation \"payments\" violates not-null constraint (SQLSTATE 23502)"}
+2026-01-16T21:51:20.080+0700	ERROR	adaptor/payment.go:47	Error handling create payment: 	{"error": "ERROR: null value in column \"transaction_id\" of relation \"payments\" violates not-null constraint (SQLSTATE 23502)"}
+2026-01-16T21:51:20.081+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "50.0747ms"}
+2026-01-16T21:52:05.732+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "148.1066ms"}
+2026-01-16T21:53:05.310+0700	ERROR	repository/payment.go:128	Error query update payment: 	{"error": "ERROR: invalid input value for enum payment_status: \"\" (SQLSTATE 22P02)"}
+2026-01-16T21:53:05.313+0700	ERROR	usecase/payment.go:51	Error update payment usecase: 	{"error": "ERROR: invalid input value for enum payment_status: \"\" (SQLSTATE 22P02)"}
+2026-01-16T21:53:05.313+0700	ERROR	adaptor/payment.go:75	Error handling update payment: 	{"error": "ERROR: invalid input value for enum payment_status: \"\" (SQLSTATE 22P02)"}
+2026-01-16T21:53:05.314+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "16.7666ms"}
+2026-01-16T21:53:18.305+0700	ERROR	repository/payment.go:128	Error query update payment: 	{"error": "ERROR: invalid input value for enum payment_status: \"paid\" (SQLSTATE 22P02)"}
+2026-01-16T21:53:18.306+0700	ERROR	usecase/payment.go:51	Error update payment usecase: 	{"error": "ERROR: invalid input value for enum payment_status: \"paid\" (SQLSTATE 22P02)"}
+2026-01-16T21:53:18.306+0700	ERROR	adaptor/payment.go:75	Error handling update payment: 	{"error": "ERROR: invalid input value for enum payment_status: \"paid\" (SQLSTATE 22P02)"}
+2026-01-16T21:53:18.306+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "6.5905ms"}
+2026-01-16T21:53:24.801+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "17.8867ms"}

@@ -3,7 +3,6 @@ package repository
 import (
 	"context"
 	"fmt"
-	"time"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/project-app-bioskop-golang/internal/data/entity"
@@ -14,6 +13,7 @@ import (
 )
 
 type StudioRepository interface{
+	CreateStudioType(req dto.StudioType) (*entity.StudioType, error)
 	GetAll(q dto.PaginationQuery) ([]entity.Studio, int, error)
 	GetByID(id int) (*entity.Studio, error)
 	Create(data dto.StudioRequest) (*entity.Studio, error)
@@ -33,6 +33,18 @@ func NewStudioRepository(db database.PgxIface, log *zap.Logger) StudioRepository
 	}
 }
 
+func (r *studioRepository) CreateStudioType(req dto.StudioType) (*entity.StudioType, error) {
+	var t entity.StudioType
+	query := `INSERT INTO studio_types (name, row, column, price)
+	VALUES ($1, $2, $3, $4) RETURNING id, name, row, column, price`
+	err := r.db.QueryRow(context.Background(), query, req.Name, req.Row, req.Column, req.Price).Scan(&t.ID, &t.Name, &t.Row, &t.Column, &t.Price)
+	if err != nil {
+		r.Logger.Error("Error query create studio type: ", zap.Error(err))
+		return nil, err
+	}
+	return &t, nil
+}
+
 func (r *studioRepository) GetAll(q dto.PaginationQuery) ([]entity.Studio, int, error) {
 	var offset int
 	offset = (q.Page - 1) * q.Limit
@@ -50,7 +62,10 @@ func (r *studioRepository) GetAll(q dto.PaginationQuery) ([]entity.Studio, int, 
 	var rows pgx.Rows
 	
 	// Conditional query based on page, limit, and all param
-	query := `SELECT id, cinema_id, name, type, created_at, updated_at FROM studios WHERE deleted_at IS NULL`
+	query := `SELECT s.id, cinema_id, s.name, t.name AS type, t.price, created_at, updated_at
+	FROM studios s
+	LEFT JOIN studio_types t ON s.type = t.id
+	WHERE deleted_at IS NULL`
 
 	if !q.All && q.Limit > 0 {
 		query += ` LIMIT $1 OFFSET $2`
@@ -80,10 +95,13 @@ func (r *studioRepository) GetAll(q dto.PaginationQuery) ([]entity.Studio, int, 
 
 func (r *studioRepository) GetByID(id int) (*entity.Studio, error) {
 	var studio entity.Studio
-	query := "SELECT id, cinema_id, name, type, created_at, updated_at FROM studios WHERE id = $1 AND deleted_at IS NULL"
+	query := `SELECT s.id, cinema_id, s.name, t.name AS type, t.price, created_at, updated_at
+	FROM studios s
+	LEFT JOIN studio_types t ON s.type = t.id
+	WHERE s.id = $1 AND deleted_at IS NULL`
 
 	err := r.db.QueryRow(context.Background(), query, id).Scan(&studio.ID, &studio.CinemaID, 
-		&studio.Name, &studio.Type, &studio.CreatedAt, &studio.UpdatedAt)
+		&studio.Name, &studio.Type, &studio.Price, &studio.CreatedAt, &studio.UpdatedAt)
 
 	if err == pgx.ErrNoRows {
 		r.Logger.Error("Error not found studio: ", zap.Error(err))
@@ -100,17 +118,12 @@ func (r *studioRepository) GetByID(id int) (*entity.Studio, error) {
 
 func (r *studioRepository) Create(data dto.StudioRequest) (*entity.Studio, error) {
 	// Handle db transaction
-	tx, err := r.db.Begin(context.Background()); 
+	tx, err := r.db.Begin(context.Background())
 	if err != nil {
-		r.Logger.Error("Error start db transaction: ", zap.Error(err))
 		return nil, err
 	}
 	defer func() {
-		switch err {
-		case nil:
-			err = tx.Commit(context.Background())
-			r.Logger.Error("Error commit db transaction: ", zap.Error(err))
-		default:
+		if err != nil {
 			_ = tx.Rollback(context.Background())
 		}
 	}()
@@ -128,19 +141,23 @@ func (r *studioRepository) Create(data dto.StudioRequest) (*entity.Studio, error
 		return nil, err
 	}
 
-	// Create seats
-	letters := []string{"A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P"}
-	studioType := make(map[string][]int)
-	studioType["Regular"] = []int{14, 10}
-	studioType["Large"] = []int{18, 14}
-	studioType["Premium"] = []int{8, 6}
-	seats, ok := studioType[data.Type]
-	if !ok {
-		r.Logger.Error("Invalid studio type: ", zap.Error(err))
+	// Get studio
+	query = `SELECT s.id, cinema_id, s.name, t.name AS type, t.row, 
+	t.column, t.price, created_at, updated_at
+	FROM studios s
+	LEFT JOIN studio_types t ON s.type = t.id
+	WHERE id = $1 AND deleted_at IS NULL`
+	err = tx.QueryRow(context.Background(), query, studio.ID).Scan(&studio.ID, &studio.CinemaID, 
+		&studio.Name, &studio.Type, &studio.Row, &studio.Column, &studio.Price, &studio.CreatedAt, &studio.UpdatedAt)
+	if err != nil {
+		r.Logger.Error("Error query create studio: ", zap.Error(err))
 		return nil, err
 	}
-	for i:=0; i<seats[1]; i++ {
-		for j:=1; j<=seats[0]; j++ {
+
+	// Create seats
+	letters := []string{"A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P"}
+	for i:=0; i<*studio.Row; i++ {
+		for j:=1; j<=*studio.Column; j++ {
 			seatCode := fmt.Sprintf("%s%d", letters[i], j)
 			query = `INSERT INTO seats (studio_id, seat_code, created_at, updated_at)
 			VALUES ($1, $2, NOW(), NOW())`
@@ -151,11 +168,11 @@ func (r *studioRepository) Create(data dto.StudioRequest) (*entity.Studio, error
 		}
 	}
 
-	studio.CinemaID = data.CinemaID
-	studio.Name = data.Type
-	studio.Type = data.Type
-	studio.CreatedAt = time.Now()
-	studio.UpdatedAt = time.Now()
+	err = tx.Commit(context.Background())
+	if err != nil {
+		return nil, err
+	}
+
 	return &studio, nil
 }
 

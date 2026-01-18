@@ -24,6 +24,17 @@ func NewPaymentHandler(uc usecase.Usecase, log *zap.Logger, config utils.Configu
 	}
 }
 
+func (h *PaymentHandler) GetPaymentMethod(w http.ResponseWriter, r *http.Request) {
+	pm, err := h.Usecase.PaymentUsecase.GetPaymentMethod()
+	if err != nil {
+		h.Logger.Error("Error handling get payment method: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "get payment method failed", err.Error())
+		return
+	}
+
+	utils.ResponseSuccess(w, http.StatusOK, "get payment method success", pm)
+}
+
 func (h *PaymentHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var req dto.PaymentRequest
 
@@ -69,8 +80,9 @@ func (h *PaymentHandler) Callback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	ctx := r.Context()
 	// Execute update payment
-	err = h.Usecase.PaymentUsecase.Update(req)
+	err = h.Usecase.PaymentUsecase.Update(ctx, req)
 	if err != nil {
 		h.Logger.Error("Error handling update payment: ", zap.Error(err))
 		utils.ResponseFailed(w, http.StatusBadRequest, "update payment failed", err.Error())

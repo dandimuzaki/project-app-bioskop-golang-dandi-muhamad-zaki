@@ -22,17 +22,19 @@ type App struct {
 func Wiring(repo *repository.Repository, log *zap.Logger, config utils.Configuration) *App {
 	r := chi.NewRouter()
 
-	usecase := usecase.NewUsecase(repo, log)
+	emailJobs := make(chan utils.EmailJob, 10) // BUFFER
+	ticketJobs := make(chan utils.TicketJob)
+	stop := make(chan struct{})
+	metrics := &utils.Metrics{}
+	wg := &sync.WaitGroup{}
+
+	utils.StartEmailWorkers(3, emailJobs, stop, metrics, wg)
+	utils.StartTicketWorkers(3, ticketJobs, stop, metrics, wg)
+
+	usecase := usecase.NewUsecase(repo, log, emailJobs, ticketJobs, config)
 	handler := adaptor.NewHandler(usecase, log, config)
 	mw := mCustom.NewMiddlewareCustom(usecase, log)
 	r.Mount("/api/v1", ApiV1(&handler, mw))
-
-	// emailJobs := make(chan utils.EmailJob, 10) // BUFFER
-	stop := make(chan struct{})
-	// metrics := &utils.Metrics{}
-	wg := &sync.WaitGroup{}
-
-	// utils.StartEmailWorkers(3, emailJobs, stop, metrics, wg)
 
 	return &App{
 		Route: r,
@@ -49,17 +51,24 @@ func ApiV1(handler *adaptor.Handler, mw mCustom.MiddlewareCustom) *chi.Mux {
 	r.Route("/", func(r chi.Router) {
 		r.Route("/", func(r chi.Router) {
 			r.Use(mw.AuthMiddleware())
-			r.Use(mw.RequirePermission("super admin", "admin", "staff"))
-			
-		})
+			r.Use(mw.RequirePermission("admin"))
+			r.Post("/studio-type", handler.StudioHandler.CreateStudioType)			
+		})				
+	})
 
-		// Authentication
+	// Authentication
+	r.Route("/auth", func(r chi.Router) {
 		r.Post("/login", handler.AuthHandler.Login)
 		r.Post("/register", handler.AuthHandler.Register)
 		r.Post("/logout", handler.AuthHandler.Logout)
+		r.Post("/resend", handler.AuthHandler.ResendOTP)
+		r.Post("/verify", handler.AuthHandler.VerifyOTP)
+	})
 
-		// Available seats
-		r.Get("/available-seats", handler.SeatHandler.GetAvailableSeat)
+	// Seats
+	r.Route("/seats", func(r chi.Router) {
+		r.Use(mw.AuthMiddleware())
+		r.Get("/", handler.SeatHandler.GetSeatsByScreening)
 	})
 
 	r.Route("/cinemas", func(r chi.Router) {
@@ -133,8 +142,8 @@ func ApiV1(handler *adaptor.Handler, mw mCustom.MiddlewareCustom) *chi.Mux {
 		r.Route("/", func(r chi.Router) {
 			r.Use(mw.AuthMiddleware())
 			r.Post("/", handler.BookingHandler.Create)
-			r.Get("/", handler.ScreeningHandler.GetByCinema)
-			r.Get("/{id}", handler.ScreeningHandler.GetByID)
+			r.Get("/", handler.BookingHandler.GetBookingHistory)
+			r.Get("/{id}", handler.BookingHandler.GetByID)
 		})
 	})
 
@@ -142,7 +151,8 @@ func ApiV1(handler *adaptor.Handler, mw mCustom.MiddlewareCustom) *chi.Mux {
 		r.Route("/", func(r chi.Router) {
 			r.Use(mw.AuthMiddleware())
 			r.Post("/", handler.PaymentHandler.Create)
-			r.Post("/", handler.PaymentHandler.Callback)
+			r.Post("/callback", handler.PaymentHandler.Callback)
+			r.Get("/method", handler.PaymentHandler.GetPaymentMethod)
 		})
 	})
 	

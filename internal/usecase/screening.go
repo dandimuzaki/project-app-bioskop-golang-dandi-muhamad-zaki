@@ -10,7 +10,7 @@ import (
 )
 
 type ScreeningUsecase interface{
-	GetByCinema(q dto.ScreeningQuery) ([]dto.MovieScreening, *dto.Pagination, error)
+	GetByCinema(q dto.ScreeningQuery) (*dto.MovieByCinema, *dto.Pagination, error)
 	GetByID(id int) (*dto.MovieScreeningRow, error)
 	Create(s dto.ScreeningRequest) error
 	Update(id int, data dto.UpdateScreeningRequest) error
@@ -29,7 +29,7 @@ func NewScreeningUsecase(repo *repository.Repository, log *zap.Logger) Screening
 	}
 }
 
-func (s *screeningUsecase) GetByCinema(q dto.ScreeningQuery) ([]dto.MovieScreening, *dto.Pagination, error) {
+func (s *screeningUsecase) GetByCinema(q dto.ScreeningQuery) (*dto.MovieByCinema, *dto.Pagination, error) {
 	// Execute repo to get all screenings
 	screenings, total, err := s.Repo.ScreeningRepo.GetByCinema(q)
 	if err != nil {
@@ -68,11 +68,12 @@ func (s *screeningUsecase) GetByCinema(q dto.ScreeningQuery) ([]dto.MovieScreeni
 			m, _ := s.Repo.MovieRepo.GetByID(sc.MovieID)
 			st, _ := s.Repo.StudioRepo.GetByID(sc.StudioID)
 			result[sc.MovieID] = &dto.MovieScreening{
-				Date: dateStr,
 				Movie: *m,
 				Studio: dto.StudioResponse{
 					StudioID: st.ID,
 					Name: st.Name,
+					Type: st.Type,
+					Price: st.Price,
 				},
 			}
     }
@@ -90,12 +91,17 @@ func (s *screeningUsecase) GetByCinema(q dto.ScreeningQuery) ([]dto.MovieScreeni
     )
 	}
 
-	var response []dto.MovieScreening
+	var list []dto.MovieScreening
 	for _, screening := range result {
-		response = append(response, *screening)
+		list = append(list, *screening)
 	}
 
-	return response, &pagination, nil
+	response := dto.MovieByCinema{
+		Date: dateStr,
+		List: list,
+	}
+
+	return &response, &pagination, nil
 }
 
 func (s *screeningUsecase) GetByID(id int) (*dto.MovieScreeningRow, error) {

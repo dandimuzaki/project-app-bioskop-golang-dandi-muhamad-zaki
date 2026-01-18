@@ -16,7 +16,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\": \"Admin\",\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"password\"\r\n}",
+              "raw": "{\r\n    \"name\": \"Dandi\",\r\n    \"email\": \"vidgrafkeun@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -24,7 +24,7 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8080/api/v1/register",
+              "raw": "http://localhost:8080/api/v1/auth/register",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -33,7 +33,127 @@
               "path": [
                 "api",
                 "v1",
+                "auth",
                 "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify OTP",
+          "id": "3d0113e0-917d-42c4-a3da-51ddfdc55731",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"vidgrafkeun@gmail.com\",\r\n    \"otp\": \"144304\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/verify",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "verify"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "id": "33bc5150-3402-4363-8584-dfc4cbdf2230",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"keprofesian2023@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Resend OTP",
+          "id": "3c6ed750-eb06-41a8-b691-58b8a33cb9dd",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"keprofesian2023@gmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/resend",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "resend"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "id": "d0ee2112-ce78-46b9-a8c0-3495f3757c3d",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/auth/logout",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "logout"
               ]
             }
           },
@@ -52,7 +172,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/v1/cinemas?page=2&limit=a",
+              "raw": "http://localhost:8080/api/v1/cinemas?page=1&limit=10",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -66,12 +186,12 @@
               "query": [
                 {
                   "key": "page",
-                  "value": "2",
+                  "value": "1",
                   "uuid": "f55a7930-f919-487f-be2a-bde03210f522"
                 },
                 {
                   "key": "limit",
-                  "value": "a",
+                  "value": "10",
                   "uuid": "e47bc1b0-c1b8-4915-8147-9f2b9db1dffd"
                 }
               ]
@@ -465,7 +585,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"studio_id\": 3,\r\n    \"movie_id\": 3,\r\n    \"start_date\": \"01-12-2025\",\r\n    \"end_date\": \"28-02-2026\",\r\n    \"start_hours\": [\"20.15\"]\r\n}",
+              "raw": "{\r\n    \"studio_id\": 4,\r\n    \"movie_id\": 2,\r\n    \"start_date\": \"01-12-2025\",\r\n    \"end_date\": \"28-02-2026\",\r\n    \"start_hours\": [\"12.30\"]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -495,7 +615,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/v1/screenings?cinemaId=1",
+              "raw": "http://localhost:8080/api/v1/screenings?cinemaId=1&date=19-01-2026",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -511,6 +631,11 @@
                   "key": "cinemaId",
                   "value": "1",
                   "uuid": "cfeebf33-4590-46af-b874-df67d2f4719a"
+                },
+                {
+                  "key": "date",
+                  "value": "19-01-2026",
+                  "uuid": "e7c7d858-5a2c-42dc-bb80-448cd83fc28c"
                 }
               ]
             }
@@ -524,13 +649,13 @@
       "name": "Seat",
       "item": [
         {
-          "name": "Get Available Seats",
+          "name": "Get Seats By Screening",
           "id": "ee1ce992-14ee-4ab1-9bcd-4c4d139aa6d1",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:8080/api/v1/available-seats?screeningId=621",
+              "raw": "http://localhost:8080/api/v1/seats?screeningId=909",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -539,12 +664,12 @@
               "path": [
                 "api",
                 "v1",
-                "available-seats"
+                "seats"
               ],
               "query": [
                 {
                   "key": "screeningId",
-                  "value": "621",
+                  "value": "909",
                   "uuid": "97ffb809-f361-415e-8cc5-660becdb23ff"
                 }
               ]
@@ -566,7 +691,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"screening_id\": 225,\r\n    \"seats\": [141, 142]\r\n}",
+              "raw": "{\r\n    \"screening_id\": 909,\r\n    \"seats\": [464, 465, 466]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -588,6 +713,51 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "Get Booking History",
+          "id": "f00a777c-cb1a-41e4-aa53-ef5adcfbb877",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/bookings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "bookings"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Booking By ID",
+          "id": "a93bd6be-6107-4058-8603-a36326fde0cb",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/bookings/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "bookings",
+                "2"
+              ]
+            }
+          },
+          "response": []
         }
       ],
       "id": "de9a17f2-6db4-4dcb-8d48-8e4f267b2600"
@@ -603,7 +773,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"booking_id\": 4\r\n}",
+              "raw": "{\r\n    \"booking_id\": 7,\r\n    \"payment_method\": 3,\r\n    \"amount\": 105000\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -625,6 +795,61 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "Payment Callback",
+          "id": "7f1c3b76-043a-4cf9-818a-6fb4f3e04411",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"payment_id\": 7,\r\n    \"transaction_id\": \"R3D8qW1i2z\",\r\n    \"status\": \"success\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/v1/payments/callback",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "payments",
+                "callback"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Payment Methods",
+          "id": "b08f7272-c7c0-4a64-b4f8-15e0a0f51171",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/payments/method",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "payments",
+                "method"
+              ]
+            }
+          },
+          "response": []
         }
       ],
       "id": "b04c2699-3c88-4394-96ea-fa7cc8154c90"
@@ -635,7 +860,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "8750d055-e01d-c206-9207-7b26913745b9",
+        "value": "6e68c292-6004-066c-34a0-b2d928a2d46a",
         "type": "string"
       }
     ]

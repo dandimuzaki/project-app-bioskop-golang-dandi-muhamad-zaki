@@ -23,7 +23,7 @@ func NewSeatHandler(uc usecase.Usecase, log *zap.Logger, config utils.Configurat
 	}
 }
 
-func (h *SeatHandler) GetAvailableSeat(w http.ResponseWriter, r *http.Request) {
+func (h *SeatHandler) GetSeatsByScreening(w http.ResponseWriter, r *http.Request) {
 	// Retrieve screening id
 	screeningIDStr := r.URL.Query().Get("screeningId")
 	var screeningID int

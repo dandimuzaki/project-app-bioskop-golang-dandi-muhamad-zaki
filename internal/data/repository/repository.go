@@ -16,6 +16,8 @@ type Repository struct {
 	SeatRepo SeatRepository
 	BookingRepo BookingRepository
 	PaymentRepo PaymentRepository
+	OTPRepo OTPRepository
+	TicketRepo TicketRepository
 }
 
 func NewRepository(db database.PgxIface, log *zap.Logger) Repository {
@@ -30,5 +32,7 @@ func NewRepository(db database.PgxIface, log *zap.Logger) Repository {
 		SeatRepo: NewSeatRepository(db, log),
 		BookingRepo: NewBookingRepository(db, log),
 		PaymentRepo: NewPaymentRepository(db, log),
+		OTPRepo: NewOTPRepository(db, log),
+		TicketRepo: NewTicketRepository(db, log),
 	}
 }

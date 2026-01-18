@@ -16,6 +16,16 @@ type RegisterRequest struct {
 type AuthResponse struct {
 	Name  string    `json:"name"`
 	Email string    `json:"email"`
-	Role  string    `json:"role"`
 	Token uuid.UUID `json:"token"`
+}
+
+type OTPRequest struct {
+	Email string `json:"email" validate:"required,email"`
+	OTP *string `json:"otp"`
+}
+
+type OTPResponse struct {
+	Name  string    `json:"name"`
+	Email string    `json:"email"`
+	OTP string `json:"otp"`
 }

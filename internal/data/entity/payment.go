@@ -8,3 +8,8 @@ type Payment struct {
 	Status        string  `json:"status"`
 	TransactionID *string `json:"transaction_id"`
 }
+
+type PaymentMethod struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}

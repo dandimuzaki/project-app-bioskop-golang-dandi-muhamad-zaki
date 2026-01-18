@@ -9,6 +9,7 @@ import (
 )
 
 type StudioUsecase interface{
+	CreateStudioType(req dto.StudioType) (*entity.StudioType, error)
 	GetAll(q dto.PaginationQuery) ([]entity.Studio, *dto.Pagination, error)
 	GetByID(id int) (*entity.Studio, error)
 	Create(data dto.StudioRequest) (*entity.Studio, error)
@@ -26,6 +27,15 @@ func NewStudioUsecase(repo *repository.Repository, log *zap.Logger) StudioUsecas
 		Repo:   repo,
 		Logger: log,
 	}
+}
+
+func (s *studioUsecase) CreateStudioType(req dto.StudioType) (*entity.StudioType, error) {
+	st, err := s.Repo.StudioRepo.CreateStudioType(req)
+	if err != nil {
+		s.Logger.Error("Error create studio type Usecase: ", zap.Error(err))
+		return nil, err
+	}
+	return st, err
 }
 
 func (s *studioUsecase) GetAll(q dto.PaginationQuery) ([]entity.Studio, *dto.Pagination, error) {

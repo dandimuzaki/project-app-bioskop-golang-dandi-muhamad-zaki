@@ -81,6 +81,62 @@ func (h *AuthHandler) Register(w http.ResponseWriter, r *http.Request) {
 	utils.ResponseSuccess(w, http.StatusOK, "register success", result)
 }
 
+func (h *AuthHandler) VerifyOTP(w http.ResponseWriter, r *http.Request) {
+	var req dto.OTPRequest
+
+	// Decode request body
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		h.Logger.Error("Error decode request body to dto OTP request: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "error data", err.Error())
+		return
+	}
+
+	// Validation
+	messages, err := utils.ValidateErrors(req)
+	if err != nil {
+		utils.ResponseFailed(w, http.StatusBadRequest, err.Error(), messages)
+		return
+	}
+
+	// Execute verify OTP
+	result, err := h.Usecase.AuthUsecase.VerifyOTP(req)
+	if err != nil {
+		h.Logger.Error("Error handling verify email: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusUnauthorized, "verify email failed", err.Error())
+		return
+	}
+
+	utils.ResponseSuccess(w, http.StatusOK, "email verified successfully", result)
+}
+
+func (h *AuthHandler) ResendOTP(w http.ResponseWriter, r *http.Request) {
+	var req dto.OTPRequest
+
+	// Decode request body
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		h.Logger.Error("Error decode request body to email request: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "error data", err.Error())
+		return
+	}
+
+	// Validation
+	messages, err := utils.ValidateErrors(req)
+	if err != nil {
+		utils.ResponseFailed(w, http.StatusBadRequest, err.Error(), messages)
+		return
+	}
+
+	// Execute resend OTP
+	result, err := h.Usecase.AuthUsecase.ResendOTP(req.Email)
+	if err != nil {
+		h.Logger.Error("Error handling verify email: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusUnauthorized, "send OTP failed", err.Error())
+		return
+	}
+
+	utils.ResponseSuccess(w, http.StatusOK, "OTP sent successfully", result)
+}
+
 func (h *AuthHandler) Logout(w http.ResponseWriter, r *http.Request) {
 	auth := r.Header.Get("Authorization")
 	token := strings.TrimSpace(strings.Replace(auth, "Bearer", "", 1))

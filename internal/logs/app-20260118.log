@@ -1,0 +1,112 @@
+2026-01-18T05:57:02.593+0700	ERROR	repository/otp.go:37	Error query create otp: 	{"error": "ERROR: INSERT has more expressions than target columns (SQLSTATE 42601)"}
+2026-01-18T05:57:02.601+0700	ERROR	usecase/auth.go:112	Error insert OTP: 	{"error": "ERROR: INSERT has more expressions than target columns (SQLSTATE 42601)"}
+2026-01-18T05:57:02.605+0700	ERROR	adaptor/auth.go:76	Error handling register user: 	{"error": "ERROR: INSERT has more expressions than target columns (SQLSTATE 42601)"}
+2026-01-18T05:57:02.612+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/register", "Duration": "545.5138ms"}
+2026-01-18T05:59:04.955+0700	ERROR	adaptor/auth.go:76	Error handling register user: 	{"error": "user already registered"}
+2026-01-18T05:59:04.966+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/register", "Duration": "130.0695ms"}
+2026-01-18T06:11:24.200+0700	ERROR	adaptor/auth.go:76	Error handling register user: 	{"error": "user already registered"}
+2026-01-18T06:11:24.235+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/register", "Duration": "153.0477ms"}
+2026-01-18T09:44:16.156+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/register", "Duration": "547.1493ms"}
+2026-01-18T09:44:18.964+0700	INFO	utils/send_email.go:19	Email send successfully
+2026-01-18T09:46:01.257+0700	ERROR	adaptor/auth.go:89	Error decode request body to dto OTP request: 	{"error": "invalid character '0' after object key:value pair"}
+2026-01-18T09:46:01.262+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/verify", "Duration": "6.6971ms"}
+2026-01-18T09:46:12.793+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/verify", "Duration": "171.2285ms"}
+2026-01-18T09:48:06.793+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/genres?all=true", "Duration": "37.1499ms"}
+2026-01-18T15:44:03.164+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=17-01-2026", "Duration": "407.0471ms"}
+2026-01-18T15:44:17.381+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=18-01-2026", "Duration": "27.66ms"}
+2026-01-18T15:45:04.655+0700	ERROR	usecase/seat.go:28	Error get available seats usecase: 	{"error": "seats for this screening is already closed"}
+2026-01-18T15:45:04.657+0700	ERROR	adaptor/seat.go:43	Error handling get available seats: 	{"error": "seats for this screening is already closed"}
+2026-01-18T15:45:04.658+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=505", "Duration": "60.0036ms"}
+2026-01-18T15:45:25.276+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=19-01-2026", "Duration": "26.9565ms"}
+2026-01-18T15:45:47.310+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=508", "Duration": "14.8659ms"}
+2026-01-18T15:46:21.760+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "87.568ms"}
+2026-01-18T15:47:00.197+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "37.8679ms"}
+2026-01-18T15:51:17.151+0700	ERROR	repository/payment.go:178	Error query create ticket: 	{"error": "conn busy"}
+2026-01-18T15:51:17.153+0700	ERROR	usecase/payment.go:56	Error update payment usecase: 	{"error": "conn busy"}
+2026-01-18T15:51:17.153+0700	ERROR	adaptor/payment.go:75	Error handling update payment: 	{"error": "conn busy"}
+2026-01-18T15:51:17.154+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "123.8036ms"}
+2026-01-18T15:59:13.801+0700	ERROR	repository/payment.go:178	Error query create ticket: 	{"error": "conn busy"}
+2026-01-18T15:59:13.811+0700	ERROR	usecase/payment.go:58	Error update payment usecase: 	{"error": "conn busy"}
+2026-01-18T15:59:13.812+0700	ERROR	adaptor/payment.go:75	Error handling update payment: 	{"error": "conn busy"}
+2026-01-18T15:59:13.814+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "139.9295ms"}
+2026-01-18T16:06:53.859+0700	ERROR	repository/payment.go:179	Error query create ticket: 	{"error": "conn busy"}
+2026-01-18T16:06:53.862+0700	ERROR	usecase/payment.go:58	Error update payment usecase: 	{"error": "conn busy"}
+2026-01-18T16:06:53.862+0700	ERROR	adaptor/payment.go:75	Error handling update payment: 	{"error": "conn busy"}
+2026-01-18T16:06:53.864+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "108.1008ms"}
+2026-01-18T16:08:49.849+0700	ERROR	repository/payment.go:179	Error query create ticket: 	{"error": "conn busy"}
+2026-01-18T16:08:49.869+0700	ERROR	usecase/payment.go:58	Error update payment usecase: 	{"error": "conn busy"}
+2026-01-18T16:08:49.871+0700	ERROR	adaptor/payment.go:75	Error handling update payment: 	{"error": "conn busy"}
+2026-01-18T16:08:49.875+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "394.1757ms"}
+2026-01-18T16:12:08.778+0700	ERROR	repository/payment.go:179	Error query create ticket: 	{"error": "conn busy"}
+2026-01-18T16:12:08.786+0700	ERROR	usecase/payment.go:58	Error update payment usecase: 	{"error": "conn busy"}
+2026-01-18T16:12:08.786+0700	ERROR	adaptor/payment.go:75	Error handling update payment: 	{"error": "conn busy"}
+2026-01-18T16:12:08.789+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "169.0954ms"}
+2026-01-18T16:14:35.732+0700	ERROR	repository/payment.go:184	Error query create ticket: 	{"error": "no rows in result set"}
+2026-01-18T16:14:35.740+0700	ERROR	usecase/payment.go:58	Error update payment usecase: 	{"error": "no rows in result set"}
+2026-01-18T16:14:35.742+0700	ERROR	adaptor/payment.go:75	Error handling update payment: 	{"error": "no rows in result set"}
+2026-01-18T16:14:35.743+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "207.9229ms"}
+2026-01-18T16:16:21.492+0700	ERROR	repository/payment.go:54	Error query get booking: 	{"error": "no rows in result set"}
+2026-01-18T16:16:21.500+0700	ERROR	usecase/payment.go:37	Error create payment usecase: 	{"error": "no rows in result set"}
+2026-01-18T16:16:21.502+0700	ERROR	adaptor/payment.go:47	Error handling create payment: 	{"error": "no rows in result set"}
+2026-01-18T16:16:21.505+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "33.2858ms"}
+2026-01-18T16:18:40.444+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "650.155ms"}
+2026-01-18T16:18:50.554+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "34.0446ms"}
+2026-01-18T16:19:13.834+0700	ERROR	repository/payment.go:184	Error query create ticket: 	{"error": "no rows in result set"}
+2026-01-18T16:19:13.839+0700	ERROR	usecase/payment.go:58	Error update payment usecase: 	{"error": "no rows in result set"}
+2026-01-18T16:19:13.840+0700	ERROR	adaptor/payment.go:75	Error handling update payment: 	{"error": "no rows in result set"}
+2026-01-18T16:19:13.840+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "41.8634ms"}
+2026-01-18T16:21:11.680+0700	ERROR	repository/payment.go:188	Error query create ticket: 	{"error": "no rows in result set"}
+2026-01-18T16:21:11.695+0700	ERROR	usecase/payment.go:58	Error update payment usecase: 	{"error": "no rows in result set"}
+2026-01-18T16:21:11.697+0700	ERROR	adaptor/payment.go:75	Error handling update payment: 	{"error": "no rows in result set"}
+2026-01-18T16:21:11.720+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "772.1781ms"}
+2026-01-18T16:22:35.088+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "274.1837ms"}
+2026-01-18T16:25:45.207+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "301.2619ms"}
+2026-01-18T16:25:52.265+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "24.6171ms"}
+2026-01-18T16:26:10.258+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "119.8373ms"}
+2026-01-18T16:28:21.296+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "289.9402ms"}
+2026-01-18T16:28:22.811+0700	ERROR	utils/send_email.go:36	Error send email: 	{"error": "gomail: could not send email 1: gomail: invalid address \"\": mail: no address"}
+2026-01-18T16:28:22.821+0700	INFO	utils/send_email.go:38	Email send successfully
+2026-01-18T16:35:33.633+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "353.0152ms"}
+2026-01-18T16:35:35.210+0700	ERROR	utils/send_email.go:38	Error send email: 	{"error": "gomail: could not send email 1: gomail: invalid address \"\": mail: no address"}
+2026-01-18T16:35:35.216+0700	INFO	utils/send_email.go:40	Email send successfully
+2026-01-18T16:40:29.102+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "478.1129ms"}
+2026-01-18T16:40:30.742+0700	ERROR	utils/send_email.go:38	Error send email: 	{"error": "gomail: could not send email 1: gomail: invalid address \"\": mail: no address"}
+2026-01-18T16:40:30.744+0700	INFO	utils/send_email.go:40	Email send successfully
+2026-01-18T16:42:48.855+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "291.334ms"}
+2026-01-18T16:42:48.980+0700	INFO	utils/send_email.go:36	Send email debug	{"from": "dandimuzaki@gmail.com", "to": "", "subject": "Your Ticket Is Ready"}
+2026-01-18T16:42:50.387+0700	ERROR	utils/send_email.go:44	Error send email: 	{"error": "gomail: could not send email 1: gomail: invalid address \"\": mail: no address"}
+2026-01-18T16:42:50.390+0700	INFO	utils/send_email.go:46	Email send successfully
+2026-01-18T17:04:32.463+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "332.9548ms"}
+2026-01-18T17:04:32.694+0700	INFO	utils/send_email.go:36	Send email debug	{"from": "dandimuzaki@gmail.com", "to": "customer", "subject": "Your Ticket Is Ready"}
+2026-01-18T17:04:34.403+0700	ERROR	utils/send_email.go:44	Error send email: 	{"error": "gomail: could not send email 1: gomail: invalid address \"customer\": mail: missing '@' or angle-addr"}
+2026-01-18T17:04:34.404+0700	INFO	utils/send_email.go:46	Email send successfully
+2026-01-18T17:05:38.341+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "189.0292ms"}
+2026-01-18T17:05:38.531+0700	INFO	utils/send_email.go:36	Send email debug	{"from": "dandimuzaki@gmail.com", "to": "dandi.explore@gmail.com", "subject": "Your Ticket Is Ready"}
+2026-01-18T17:05:41.724+0700	INFO	utils/send_email.go:46	Email send successfully
+2026-01-18T17:16:08.098+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "259.3019ms"}
+2026-01-18T17:16:11.633+0700	INFO	utils/send_email.go:40	Email send successfully
+2026-01-18T17:19:28.655+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "512.645ms"}
+2026-01-18T17:19:32.185+0700	INFO	utils/send_email.go:40	Email send successfully
+2026-01-18T17:41:32.167+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "381.0743ms"}
+2026-01-18T17:41:35.027+0700	INFO	utils/send_email.go:40	Email send successfully
+2026-01-18T17:45:26.406+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "351.0057ms"}
+2026-01-18T17:45:29.209+0700	INFO	utils/send_email.go:40	Email send successfully
+2026-01-18T23:20:54.436+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/bookings", "Duration": "1.1993835s"}
+2026-01-18T23:21:38.019+0700	ERROR	repository/studio.go:112	Error query get studio by id: 	{"error": "ERROR: column reference \"id\" is ambiguous (SQLSTATE 42702)"}
+2026-01-18T23:21:48.808+0700	ERROR	repository/studio.go:112	Error query get studio by id: 	{"error": "ERROR: column reference \"id\" is ambiguous (SQLSTATE 42702)"}
+2026-01-18T23:24:36.415+0700	ERROR	adaptor/booking.go:100	Error handling get booking by id: 	{"error": "seats for this screening is already closed"}
+2026-01-18T23:24:36.437+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/bookings/2", "Duration": "650.51ms"}
+2026-01-18T23:37:45.676+0700	ERROR	repository/seat.go:83	Error query get seats: 	{"error": "ERROR: syntax error at or near \"WHERE\" (SQLSTATE 42601)"}
+2026-01-18T23:37:45.685+0700	ERROR	adaptor/booking.go:100	Error handling get booking by id: 	{"error": "ERROR: syntax error at or near \"WHERE\" (SQLSTATE 42601)"}
+2026-01-18T23:37:45.693+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/bookings/2", "Duration": "145.8251ms"}
+2026-01-18T23:38:50.536+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/bookings/2", "Duration": "131.4348ms"}
+2026-01-18T23:42:44.021+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/bookings/2", "Duration": "201.1051ms"}
+2026-01-18T23:44:39.358+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/bookings/2", "Duration": "322.9996ms"}
+2026-01-18T23:47:03.154+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/bookings/2", "Duration": "331.3679ms"}
+2026-01-18T23:48:49.054+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/bookings/2", "Duration": "170.9532ms"}
+2026-01-18T23:49:08.886+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/screenings?cinemaId=1&date=19-01-2026", "Duration": "38.1298ms"}
+2026-01-18T23:49:26.153+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "GET", "URL": "/api/v1/available-seats?screeningId=909", "Duration": "21.7628ms"}
+2026-01-18T23:49:50.875+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/bookings", "Duration": "114.4414ms"}
+2026-01-18T23:50:20.279+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments", "Duration": "66.6979ms"}
+2026-01-18T23:50:38.338+0700	INFO	middleware/logging.go:19	Activity route	{"Method": "POST", "URL": "/api/v1/payments/callback", "Duration": "73.5412ms"}
+2026-01-18T23:50:41.554+0700	INFO	utils/send_email.go:40	Email send successfully

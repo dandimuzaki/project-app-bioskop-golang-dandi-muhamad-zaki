@@ -3,7 +3,9 @@ package repository
 import (
 	"context"
 	"errors"
+	"time"
 
+	"github.com/jackc/pgx/v5"
 	"github.com/project-app-bioskop-golang/internal/data/entity"
 	"github.com/project-app-bioskop-golang/internal/dto"
 	"github.com/project-app-bioskop-golang/pkg/database"
@@ -12,6 +14,8 @@ import (
 
 type BookingRepository interface{
 	Create(b dto.BookingRequest) (*entity.Booking, error)
+	GetByID(id int) (*entity.Booking, error)
+	GetBookingHistory(ctx context.Context, q dto.PaginationQuery) ([]dto.BookingHistory, int, error)
 }
 
 type bookingRepository struct {
@@ -65,8 +69,8 @@ WHERE s.id = $1
 
 	// Create booking_seats
 	for _, seatID := range b.Seats {
-		query := `INSERT INTO booking_seats (booking_id, screening_id, seat_id, created_at)
-		VALUES ($1, $2, $3, NOW())`
+		query := `INSERT INTO booking_seats (booking_id, screening_id, seat_id, booking_status, created_at)
+		VALUES ($1, $2, $3, 'pending', NOW())`
 
 		_, err := tx.Exec(context.Background(), query, booking.ID, b.ScreeningID, seatID)
 		if err != nil {
@@ -92,4 +96,83 @@ WHERE s.id = $1
 	}
 
 	return &booking, nil
+}
+
+func (r *bookingRepository) GetByID(id int) (*entity.Booking, error) {
+	var b entity.Booking
+	query := `SELECT id, user_id, screening_id, status, expired_at, created_at, updated_at
+	FROM bookings WHERE id = $1
+	`
+	err := r.db.QueryRow(context.Background(), query, id).Scan(&b.ID, &b.UserID, &b.ScreeningID, &b.Status, &b.ExpiredAt, &b.CreatedAt, &b.UpdatedAt)
+	if err != nil {
+		r.Logger.Error("Error query get booking by id: ", zap.Error(err))
+		return nil, err
+	}
+
+	return &b, nil
+}
+
+func (r *bookingRepository) GetBookingHistory(ctx context.Context, q dto.PaginationQuery) ([]dto.BookingHistory, int, error) {
+	var offset int
+	offset = (q.Page - 1) * q.Limit
+	
+	// Get total data for pagination
+	user := ctx.Value("user").(entity.User)
+	var total int
+	countQuery := `
+	SELECT id FROM bookings WHERE user_id = $1`
+	err := r.db.QueryRow(context.Background(), countQuery, user.ID).Scan(&total)
+	if err != nil {
+		r.Logger.Error("Error query count booking history: ", zap.Error(err))
+		return nil, 0, err
+	}
+
+	// Initiate rows
+	var rows pgx.Rows
+	
+	// Conditional query based on page, limit, and all param
+	query := `SELECT b.id, m.title, c.name, m.poster_url, 
+	ARRAY_AGG(s.seat_code) AS seats, b.status, sc.start_time
+	FROM bookings b
+	LEFT JOIN screenings sc ON sc.id = b.screening_id
+	LEFT JOIN studios st ON st.id = sc.studio_id
+	LEFT JOIN cinemas c ON c.id = st.cinema_id
+	LEFT JOIN movies m ON m.id = sc.movie_id
+	LEFT JOIN booking_seats bs ON bs.booking_id = b.id
+	LEFT JOIN seats s ON s.id = bs.seat_id
+	WHERE user_id = $1
+	GROUP BY b.id, m.title, c.name, m.poster_url, b.status, sc.start_time
+	ORDER BY sc.start_time DESC
+	`
+	
+	if !q.All && q.Limit > 0 {
+		query += ` LIMIT $2 OFFSET $3`
+		rows, err = r.db.Query(context.Background(), query, user.ID, q.Limit, offset)
+	} else {
+		rows, err = r.db.Query(context.Background(), query, user.ID)
+	}
+
+	if err != nil {
+		r.Logger.Error("Error query get booking history: ", zap.Error(err))
+		return nil, 0, err
+	}
+	defer rows.Close()
+	
+	var bookings []dto.BookingHistory
+	for rows.Next() {
+		var b dto.BookingHistory
+		var startTime time.Time
+		err = rows.Scan(&b.ID, &b.MovieTitle, &b.Cinema, &b.PosterURL, &b.Seats, &b.Status, &startTime)
+		if err != nil {
+			r.Logger.Error("Error query get booking by id: ", zap.Error(err))
+			return nil, 0, err
+		}
+		// Convert to WIB
+		loc, _ := time.LoadLocation("Asia/Jakarta")
+		b.Date = startTime.In(loc).Format("02 January 2006")
+		b.StartTime = startTime.In(loc).Format("15.04")
+		bookings = append(bookings, b)
+	}
+
+	return bookings, total, nil
 }

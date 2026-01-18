@@ -11,6 +11,7 @@ import (
 
 type SeatRepository interface{
 	GetSeats(screeningID int) ([]dto.SeatResponse, error)
+	GetSeatsByBookingID(id int) ([]dto.SeatResponse, error)
 }
 
 type seatRepository struct {
@@ -66,6 +67,33 @@ func (r *seatRepository) GetSeats(screeningID int) ([]dto.SeatResponse, error) {
 
 	if len(seats) == 0 {
 		return nil, errors.New("seats for this screening is already closed")
+	}
+
+	return seats, nil
+}
+
+func (r *seatRepository) GetSeatsByBookingID(id int) ([]dto.SeatResponse, error) {
+	query := `SELECT s.id, seat_code
+	FROM seats s
+	RIGHT JOIN booking_seats bs ON bs.seat_id = s.id
+	WHERE bs.booking_id = $1
+	`
+	rows, err := r.db.Query(context.Background(), query, id)
+	if err != nil {
+		r.Logger.Error("Error query get seats: ", zap.Error(err))
+		return nil, err
+	}
+	defer rows.Close()
+
+	var seats []dto.SeatResponse
+	for rows.Next() {
+		var s dto.SeatResponse
+		err := rows.Scan(&s.ID, &s.SeatCode)
+		if err != nil {
+			r.Logger.Error("Error scan seat: ", zap.Error(err))
+			return nil, err
+		}
+		seats = append(seats, s)
 	}
 
 	return seats, nil

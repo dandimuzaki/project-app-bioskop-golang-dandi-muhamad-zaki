@@ -69,6 +69,34 @@ func (h *StudioHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	utils.ResponseSuccess(w, http.StatusOK, "get studio success", result)
 }
 
+func (h *StudioHandler) CreateStudioType(w http.ResponseWriter, r *http.Request) {
+	var req dto.StudioType
+
+	// Decode request body
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		h.Logger.Error("Error decode request body to dto studio type request: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "error data", err.Error())
+		return
+	}
+
+	// Validation
+	messages, err := utils.ValidateErrors(req)
+	if err != nil {
+		utils.ResponseFailed(w, http.StatusBadRequest, err.Error(), messages)
+		return
+	}
+
+	// Execute create studio type
+	result, err := h.Usecase.StudioUsecase.CreateStudioType(req)
+	if err != nil {
+		h.Logger.Error("Error handling create studio: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "create studio type failed", err.Error())
+		return
+	}
+
+	utils.ResponseSuccess(w, http.StatusCreated, "create studio type success", result)
+}
+
 func (h *StudioHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var req dto.StudioRequest
 

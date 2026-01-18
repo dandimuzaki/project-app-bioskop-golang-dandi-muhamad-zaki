@@ -3,6 +3,7 @@ package adaptor
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/project-app-bioskop-golang/internal/data/entity"
 	"github.com/project-app-bioskop-golang/internal/dto"
@@ -55,4 +56,50 @@ func (h *BookingHandler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utils.ResponseSuccess(w, http.StatusOK, "create booking success", result)
+}
+
+func (h *BookingHandler) GetBookingHistory(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	
+	// Retrieve query
+	q, err := utils.GetPaginationQuery(r, h.Logger, h.Config)
+	if err != nil {
+		utils.ResponseFailed(w, http.StatusBadRequest, "invalid query param", err.Error())
+		return
+	}
+
+	// Execute get booking history
+	result, pagination, err := h.Usecase.BookingUsecase.GetBookingHistory(ctx, q)
+	if err != nil {
+		h.Logger.Error("Error handling get booking history: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "get booking history failed", err.Error())
+		return
+	}
+
+	utils.ResponseWithPagination(w, http.StatusOK, "get booking history success", result, pagination)
+}
+
+func (h *BookingHandler) GetByID(w http.ResponseWriter, r *http.Request) {
+	// Retrieve id
+	idStr := r.PathValue("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		h.Logger.Error("Error convert string to int: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "error data", err.Error())
+		return
+	}
+
+	// Execute get booking
+	result, err := h.Usecase.BookingUsecase.GetByID(id)
+	if err != nil && err.Error() == utils.ErrNotFound("booking").Error() {
+		h.Logger.Error("Error booking not found: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusNotFound, "booking not found", err.Error())
+		return
+	}
+	if err != nil {
+		h.Logger.Error("Error handling get booking by id: ", zap.Error(err))
+		utils.ResponseFailed(w, http.StatusBadRequest, "get booking failed", err.Error())
+		return
+	}
+	utils.ResponseSuccess(w, http.StatusOK, "get booking success", result)
 }

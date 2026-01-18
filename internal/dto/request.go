@@ -8,7 +8,7 @@ type CinemaRequest struct {
 type StudioRequest struct {
 	CinemaID int    `json:"cinema_id" validate:"required,gt=0"`
 	Name     string `json:"name" validate:"required"`
-	Type     string `json:"type" validate:"required"`
+	Type     int    `json:"type" validate:"required"`
 }
 
 type MovieRequest struct {
@@ -44,13 +44,39 @@ type BookingRequest struct {
 }
 
 type PaymentRequest struct {
-	BookingID     int    `json:"booking_id" validate:"required"`
-	PaymentMethod int    `json:"payment_method" validate:"required"`
-	Amount        string `json:"amount" validate:"required"`
+	BookingID     int     `json:"booking_id" validate:"required"`
+	PaymentMethod int     `json:"payment_method" validate:"required"`
+	Amount        float64 `json:"amount" validate:"required"`
 }
 
 type UpdatePayment struct {
 	PaymentID     int     `json:"payment_id"`
 	Status        string  `json:"status"`
 	TransactionID *string `json:"transaction_id"`
+}
+
+type OTP struct {
+	Email   string `json:"email"`
+	OTPHash string `json:"otp_hash"`
+}
+
+type Attachment struct {
+	FileName    string
+	FileByte    []byte
+	ContentType string
+}
+
+type EmailRequest struct {
+	From        string
+	To          string
+	Subject     string
+	Body        string
+	Attachments []Attachment
+}
+
+type StudioType struct {
+	Name   string  `json:"name" validate:"required"`
+	Row    int     `json:"row" validate:"required,gt=0"`
+	Column int     `json:"column" validate:"required,gt=0"`
+	Price  float64 `json:"price" validate:"required,gt=0"`
 }

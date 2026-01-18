@@ -7,13 +7,15 @@ import (
 	"github.com/project-app-bioskop-golang/internal/data/entity"
 	"github.com/project-app-bioskop-golang/internal/dto"
 	"github.com/project-app-bioskop-golang/pkg/database"
+	"github.com/project-app-bioskop-golang/pkg/utils"
 	"go.uber.org/zap"
 )
 
 type PaymentRepository interface{
+	GetPaymentMethod() ([]entity.PaymentMethod, error)
 	Create(b dto.PaymentRequest) (*int, error)
 	GetPaymentByID(id int) (*entity.Payment, error)
-	Update(p dto.UpdatePayment) error
+	Update(p dto.UpdatePayment) (*int, error)
 }
 
 type paymentRepository struct {
@@ -26,6 +28,28 @@ func NewPaymentRepository(db database.PgxIface, log *zap.Logger) PaymentReposito
 		db: db,
 		Logger: log,
 	}
+}
+
+func (r *paymentRepository) GetPaymentMethod() ([]entity.PaymentMethod, error) {
+	query := `SELECT id, name FROM payment_methods`
+	rows, err := r.db.Query(context.Background(), query)
+	if err != nil {
+		r.Logger.Error("Error query get payment method: ", zap.Error(err))
+		return nil, err
+	}
+	defer rows.Close()
+
+	var paymentMethods []entity.PaymentMethod
+	for rows.Next() {
+		var pm entity.PaymentMethod
+		err = rows.Scan(&pm.ID, &pm.Name)
+		if err != nil {
+			r.Logger.Error("Error scan payment method: ", zap.Error(err))
+			return nil, err
+		}
+		paymentMethods = append(paymentMethods, pm)
+	}
+	return paymentMethods, nil
 }
 
 func (r *paymentRepository) Create(p dto.PaymentRequest) (*int, error) {
@@ -45,6 +69,7 @@ func (r *paymentRepository) Create(p dto.PaymentRequest) (*int, error) {
 	query := `SELECT status
 		FROM bookings
 		WHERE id = $1
+		AND expired_at > NOW()
 		FOR UPDATE`
 	err = tx.QueryRow(context.Background(), query, p.BookingID).Scan(&bookingStatus)
 
@@ -71,7 +96,7 @@ func (r *paymentRepository) Create(p dto.PaymentRequest) (*int, error) {
 
 	// Create payment
 	var payment entity.Payment
-	query = `INSERT INTO payments (booking_id, payment_method, amount, status, created_at, updated_at)
+	query = `INSERT INTO payments (booking_id, payment_method_id, amount, status, created_at, updated_at)
 	VALUES ($1, $2, $3, 'pending', NOW(), NOW())
 	RETURNING id`
 	err = tx.QueryRow(context.Background(), query, p.BookingID, p.PaymentMethod, p.Amount).Scan(&payment.ID)
@@ -104,11 +129,11 @@ func (r *paymentRepository) GetPaymentByID(id int) (*entity.Payment, error) {
 	return &payment, nil
 }
 
-func (r *paymentRepository) Update(p dto.UpdatePayment) error {
+func (r *paymentRepository) Update(p dto.UpdatePayment) (*int, error) {
 	// Handle db transaction
 	tx, err := r.db.Begin(context.Background())
 	if err != nil {
-		return err
+		return nil, err
 	}
 	defer func() {
 		if err != nil {
@@ -116,8 +141,21 @@ func (r *paymentRepository) Update(p dto.UpdatePayment) error {
 		}
 	}()
 
+	// Check payment current status
+	var payment entity.Payment
+	query :=`SELECT booking_id, status FROM payments WHERE id = $1 FOR UPDATE`
+	err = tx.QueryRow(context.Background(), query, p.PaymentID).Scan(&payment.BookingID, &payment.Status)
+	if err != nil {
+		r.Logger.Error("Error query get payment by id: ", zap.Error(err))
+		return nil, err
+	}
+
+	if payment.Status != "pending" {
+		return &payment.BookingID, nil
+	}
+
 	// Update payment
-	query := `UPDATE payments
+	query = `UPDATE payments
 	SET status = $1,
 	transaction_id = $2,
 	updated_at = NOW()
@@ -125,13 +163,74 @@ func (r *paymentRepository) Update(p dto.UpdatePayment) error {
 	_, err = tx.Exec(context.Background(), query, p.Status, p.TransactionID, p.PaymentID)
 	if err != nil {
 		r.Logger.Error("Error query update payment: ", zap.Error(err))
-		return err
+		return nil, err
+	}
+
+	if p.Status == "success" {
+		// Update booking
+		query = `UPDATE bookings SET status = 'paid' WHERE id = $1`
+		_, err = tx.Exec(context.Background(), query, payment.BookingID)
+		if err != nil {
+			r.Logger.Error("Error query update booking: ", zap.Error(err))
+			return nil, err
+		}
+
+		// Update booking_seats
+		query = `UPDATE booking_seats SET booking_status = 'paid' WHERE booking_id = $1`
+		_, err = tx.Exec(context.Background(), query, payment.BookingID)
+		if err != nil {
+			r.Logger.Error("Error query update booking_seats: ", zap.Error(err))
+			return nil, err
+		}
+
+		// Get seats
+		query = `SELECT seat_id FROM booking_seats WHERE booking_id = $1`
+		rows, err := tx.Query(context.Background(), query, payment.BookingID)
+		if err != nil {
+			r.Logger.Error("Error query get seats: ", zap.Error(err))
+			return nil, err
+		}
+		defer rows.Close()
+
+		var seats []int
+		for rows.Next() {
+			var seatID int
+			err := rows.Scan(&seatID)
+			if err != nil {
+				r.Logger.Error("Error scan seats: ", zap.Error(err))
+				return nil, err
+			}
+
+			seats = append(seats, seatID)
+		}
+
+		for _, seatID := range seats {
+			// Generate ticket
+			qrToken, err := utils.GenerateRandomToken(16)
+			if err != nil {
+				r.Logger.Error("Error generate random token: ", zap.Error(err))
+				return nil, err
+			}
+
+			query = `INSERT INTO tickets (booking_id, seat_id, qr_token, created_at)
+			VALUES ($1, $2, $3, NOW())`
+			_, err = tx.Exec(context.Background(), query, payment.BookingID, seatID, qrToken)
+			if err != nil {
+				r.Logger.Error("Error query create ticket: ", zap.Error(err))
+				return nil, err
+			}
+		}
+
+		if err := tx.Commit(context.Background()); err != nil {
+			return nil, err
+		}
+		return &payment.BookingID, nil
 	}
 
 	err = tx.Commit(context.Background())
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return nil, nil
 }
